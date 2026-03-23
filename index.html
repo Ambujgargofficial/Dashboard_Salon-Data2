@@ -1079,7 +1079,7 @@
 
           return (
             <div className="min-h-screen bg-gray-50 text-gray-800 p-4 md:p-6 font-sans">
-              <div className="max-w-6xl w-full mx-auto space-y-4">
+              <div className="max-w-[1450px] w-full mx-auto space-y-5">
                 
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100">
@@ -1366,22 +1366,22 @@
                             <tbody>
                               {filteredData.slice(0, 500).map((row, idx) => (
                                 <tr key={`raw-${idx}`} className="border-b border-gray-100 hover:bg-gray-50/80 transition-colors text-gray-600">
-                                  <td className="px-3 py-1.5">{row.displayDate}</td>
-                                  <td className="px-3 py-1.5">{row.invoiceNo}</td>
-                                  <td className="px-3 py-1.5 text-right">{row.cash || 0}</td>
-                                  <td className="px-3 py-1.5 text-right">{row.card || 0}</td>
-                                  <td className="px-3 py-1.5 text-right">{row.paytm || 0}</td>
-                                  <td className="px-3 py-1.5 text-right">{row.upi || 0}</td>
-                                  <td className="px-3 py-1.5 text-right font-medium text-gray-800 bg-yellow-50/30">{row.totalPaid || 0}</td>
-                                  <td className="px-3 py-1.5">{row.addOn}</td>
-                                  <td className="px-3 py-1.5 text-right">{row.addOnValue || 0}</td>
-                                  <td className="px-3 py-1.5">{row.soldBy}</td>
-                                  <td className="px-3 py-1.5 text-right">{row.incentive || 0}</td>
-                                  <td className="px-3 py-1.5 truncate max-w-[150px]">{row.expenseHead}</td>
-                                  <td className="px-3 py-1.5 truncate max-w-[150px]">{row.remarks}</td>
-                                  <td className="px-3 py-1.5 text-right text-red-600">{row.expenseAmount || 0}</td>
-                                  <td className="px-3 py-1.5">{row.location}</td>
-                                  <td className="px-3 py-1.5">{row.userEmpName}</td>
+                                  <td className="px-3 py-2">{row.displayDate}</td>
+                                  <td className="px-3 py-2">{row.invoiceNo}</td>
+                                  <td className="px-3 py-2 text-right">{row.cash || 0}</td>
+                                  <td className="px-3 py-2 text-right">{row.card || 0}</td>
+                                  <td className="px-3 py-2 text-right">{row.paytm || 0}</td>
+                                  <td className="px-3 py-2 text-right">{row.upi || 0}</td>
+                                  <td className="px-3 py-2 text-right font-medium text-gray-800 bg-yellow-50/30">{row.totalPaid || 0}</td>
+                                  <td className="px-3 py-2">{row.addOn}</td>
+                                  <td className="px-3 py-2 text-right">{row.addOnValue || 0}</td>
+                                  <td className="px-3 py-2">{row.soldBy}</td>
+                                  <td className="px-3 py-2 text-right">{row.incentive || 0}</td>
+                                  <td className="px-3 py-2 truncate max-w-[150px]">{row.expenseHead}</td>
+                                  <td className="px-3 py-2 truncate max-w-[150px]">{row.remarks}</td>
+                                  <td className="px-3 py-2 text-right text-red-600">{row.expenseAmount || 0}</td>
+                                  <td className="px-3 py-2">{row.location}</td>
+                                  <td className="px-3 py-2">{row.userEmpName}</td>
                                 </tr>
                               ))}
                               {filteredData.length === 0 && (
@@ -1435,8 +1435,8 @@
                                 <tbody>
                                   {expenseData.summary.map(([head, expData], index) => (
                                     <tr key={`exp-${index}`} className="border-b border-gray-100 hover:bg-blue-50/30 transition-colors">
-                                      <td className="px-5 py-2 text-gray-800 font-medium">{head}</td>
-                                      <td className="px-5 py-2 text-right">
+                                      <td className="px-5 py-2.5 text-gray-800 font-medium">{head}</td>
+                                      <td className="px-5 py-2.5 text-right">
                                         <button 
                                           onClick={() => {
                                               setSelectedExpenseForDetail({ head, details: expData.details, total: expData.amount });
@@ -1559,37 +1559,37 @@
                               <table className="w-full text-left border-collapse min-w-[800px] text-sm">
                                 <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
                                   <tr className="border-b border-gray-200 text-gray-600">
-                                    <th className="px-4 py-2.5 font-semibold whitespace-nowrap">Location</th>
-                                    <th className="px-4 py-2.5 font-semibold whitespace-nowrap">Expense Head</th>
-                                    <th className="px-4 py-2.5 font-bold text-right border-l border-gray-200 text-gray-800">Plan</th>
-                                    <th className="px-4 py-2.5 font-bold text-right text-gray-800">Actual</th>
-                                    <th className="px-4 py-2.5 font-bold text-right text-indigo-700">Variance</th>
-                                    <th className="px-4 py-2.5 font-bold text-right text-amber-600">% Utilized</th>
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Location</th>
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Expense Head</th>
+                                    <th className="px-4 py-3 font-bold text-right border-l border-gray-200 text-gray-800">Plan</th>
+                                    <th className="px-4 py-3 font-bold text-right text-gray-800">Actual</th>
+                                    <th className="px-4 py-3 font-bold text-right text-indigo-700">Variance</th>
+                                    <th className="px-4 py-3 font-bold text-right text-amber-600">% Utilized</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {filteredBudgetRecords.map((row, index) => (
                                     <tr key={`bud-${index}`} className="border-b border-gray-100 hover:bg-pink-50/30 transition-colors">
-                                      <td className="px-4 py-1.5 text-gray-800 font-bold whitespace-nowrap">{row.location}</td>
-                                      <td className="px-4 py-1.5 text-gray-600 font-medium whitespace-nowrap truncate max-w-[200px]">{row.head}</td>
-                                      <td className="px-4 py-1.5 text-right border-l border-gray-100">{formatCurrency(row.plan)}</td>
-                                      <td className="px-4 py-1.5 text-right font-medium">{formatCurrency(row.actual)}</td>
-                                      <td className={`px-4 py-1.5 text-right font-bold ${row.variance < 0 ? 'text-red-600 bg-red-50/50' : row.variance > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
+                                      <td className="px-4 py-2.5 text-gray-800 font-bold whitespace-nowrap">{row.location}</td>
+                                      <td className="px-4 py-2.5 text-gray-600 font-medium whitespace-nowrap truncate max-w-[200px]">{row.head}</td>
+                                      <td className="px-4 py-2.5 text-right border-l border-gray-100">{formatCurrency(row.plan)}</td>
+                                      <td className="px-4 py-2.5 text-right font-medium">{formatCurrency(row.actual)}</td>
+                                      <td className={`px-4 py-2.5 text-right font-bold ${row.variance < 0 ? 'text-red-600 bg-red-50/50' : row.variance > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
                                         {row.variance > 0 ? '+' : ''}{formatCurrency(row.variance)}
                                       </td>
-                                      <td className="px-4 py-1.5 text-right font-bold text-amber-700 bg-amber-50/30">
+                                      <td className="px-4 py-2.5 text-right font-bold text-amber-700 bg-amber-50/30">
                                         {formatUtilized(row.plan, row.actual)}
                                       </td>
                                     </tr>
                                   ))}
                                   <tr className="bg-gray-100 border-t-2 border-gray-300 font-bold text-gray-900 sticky bottom-0">
-                                    <td className="px-4 py-2.5" colSpan="2">GRAND TOTAL</td>
-                                    <td className="px-4 py-2.5 text-right border-l border-gray-300">{formatCurrency(filteredBudgetTotals.plan)}</td>
-                                    <td className="px-4 py-2.5 text-right">{formatCurrency(filteredBudgetTotals.actual)}</td>
-                                    <td className={`px-4 py-2.5 text-right text-base ${filteredBudgetTotals.variance < 0 ? 'text-red-600' : filteredBudgetTotals.variance > 0 ? 'text-green-600' : 'text-gray-900'}`}>
+                                    <td className="px-4 py-3" colSpan="2">GRAND TOTAL</td>
+                                    <td className="px-4 py-3 text-right border-l border-gray-300">{formatCurrency(filteredBudgetTotals.plan)}</td>
+                                    <td className="px-4 py-3 text-right">{formatCurrency(filteredBudgetTotals.actual)}</td>
+                                    <td className={`px-4 py-3 text-right text-base ${filteredBudgetTotals.variance < 0 ? 'text-red-600' : filteredBudgetTotals.variance > 0 ? 'text-green-600' : 'text-gray-900'}`}>
                                       {filteredBudgetTotals.variance > 0 ? '+' : ''}{formatCurrency(filteredBudgetTotals.variance)}
                                     </td>
-                                    <td className="px-4 py-2.5 text-right text-base text-amber-800">
+                                    <td className="px-4 py-3 text-right text-base text-amber-800">
                                         {formatUtilized(filteredBudgetTotals.plan, filteredBudgetTotals.actual)}
                                     </td>
                                   </tr>
@@ -1644,21 +1644,21 @@
                               <table className="w-full text-left border-collapse min-w-[600px] text-sm">
                                 <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
                                   <tr className="border-b border-gray-200 text-gray-600">
-                                    <th className="px-4 py-2.5 font-semibold whitespace-nowrap">Date</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right">Opening Cash</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right text-green-600">Cash In (Sales)</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right text-red-500">Cash Out (Exp)</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right text-teal-700">Closing Cash</th>
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Date</th>
+                                    <th className="px-4 py-3 font-semibold text-right">Opening Cash</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-green-600">Cash In (Sales)</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-red-500">Cash Out (Exp)</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-teal-700">Closing Cash</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {cashReportData.dailyRecords.map((day, index) => (
                                     <tr key={`day-${index}`} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                                      <td className="px-4 py-1.5 text-gray-800 font-medium whitespace-nowrap">{day.displayDate}</td>
-                                      <td className="px-4 py-1.5 text-right text-gray-600">{formatCurrency(day.opening)}</td>
-                                      <td className="px-4 py-1.5 text-right text-green-600 font-medium">+{formatCurrency(day.cashIn)}</td>
-                                      <td className="px-4 py-1.5 text-right text-red-500 font-medium">-{formatCurrency(day.cashOut)}</td>
-                                      <td className="px-4 py-1.5 text-right font-bold text-teal-700 bg-teal-50/30">
+                                      <td className="px-4 py-2.5 text-gray-800 font-medium whitespace-nowrap">{day.displayDate}</td>
+                                      <td className="px-4 py-2.5 text-right text-gray-600">{formatCurrency(day.opening)}</td>
+                                      <td className="px-4 py-2.5 text-right text-green-600 font-medium">+{formatCurrency(day.cashIn)}</td>
+                                      <td className="px-4 py-2.5 text-right text-red-500 font-medium">-{formatCurrency(day.cashOut)}</td>
+                                      <td className="px-4 py-2.5 text-right font-bold text-teal-700 bg-teal-50/30">
                                         {formatCurrency(day.closing)}
                                       </td>
                                     </tr>
@@ -1694,25 +1694,25 @@
                             
                             {/* Summary Cards */}
                             <div className="flex flex-wrap items-center gap-2 flex-1 lg:justify-end pr-0 lg:pr-2">
-                                <div className={`px-2 py-1 rounded border text-xs font-medium flex items-center gap-1 ${paymentReportData.totals.cashVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cashVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
-                                    <span className="uppercase tracking-wider opacity-80">Cash Var:</span>
+                                <div className={`px-3 py-1.5 rounded border text-sm font-medium flex items-center gap-1.5 ${paymentReportData.totals.cashVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cashVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="uppercase tracking-wider opacity-80 text-xs">Cash Var:</span>
                                     <span>{paymentReportData.totals.cashVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.cashVar)}</span>
                                 </div>
-                                <div className={`px-2 py-1 rounded border text-xs font-medium flex items-center gap-1 ${paymentReportData.totals.upiVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.upiVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
-                                    <span className="uppercase tracking-wider opacity-80">UPI Var:</span>
+                                <div className={`px-3 py-1.5 rounded border text-sm font-medium flex items-center gap-1.5 ${paymentReportData.totals.upiVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.upiVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="uppercase tracking-wider opacity-80 text-xs">UPI Var:</span>
                                     <span>{paymentReportData.totals.upiVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.upiVar)}</span>
                                 </div>
-                                <div className={`px-2 py-1 rounded border text-xs font-medium flex items-center gap-1 ${paymentReportData.totals.cardVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cardVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
-                                    <span className="uppercase tracking-wider opacity-80">Card Var:</span>
+                                <div className={`px-3 py-1.5 rounded border text-sm font-medium flex items-center gap-1.5 ${paymentReportData.totals.cardVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cardVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="uppercase tracking-wider opacity-80 text-xs">Card Var:</span>
                                     <span>{paymentReportData.totals.cardVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.cardVar)}</span>
                                 </div>
                             </div>
 
                             <button 
                               onClick={handleExportPaymentReport}
-                              className="flex items-center justify-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm flex-shrink-0"
+                              className="flex items-center justify-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium text-xs transition-colors shadow-sm flex-shrink-0"
                             >
-                              <Download className="w-3.5 h-3.5" /> Export
+                              <Download className="w-4 h-4" /> Export
                             </button>
                           </div>
                           
@@ -1722,40 +1722,40 @@
                             </div>
                           ) : (
                             <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
-                              <table className="w-full text-left border-collapse min-w-[1200px] text-xs">
+                              <table className="w-full text-left border-collapse min-w-[1200px] text-sm">
                                 <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
-                                  <tr className="border-b-2 border-gray-200 text-gray-600 uppercase tracking-wider">
-                                    <th className="px-3 py-2.5 font-semibold whitespace-nowrap">Date</th>
-                                    <th className="px-3 py-2.5 font-semibold whitespace-nowrap">Location</th>
-                                    <th className="px-3 py-2.5 font-semibold whitespace-nowrap">Manager</th>
+                                  <tr className="border-b-2 border-gray-200 text-gray-600 uppercase tracking-wider text-xs">
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Date</th>
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Location</th>
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Manager</th>
                                     
                                     {/* Cash Headers */}
-                                    <th className="px-3 py-2.5 font-bold text-right border-l border-gray-200 text-gray-800">Sys Cash</th>
-                                    <th className="px-3 py-2.5 font-bold text-right text-gray-800">Mgr Cash</th>
-                                    <th className="px-3 py-2.5 font-bold text-right text-indigo-700">Cash Var</th>
+                                    <th className="px-4 py-3 font-bold text-right border-l border-gray-200 text-gray-800">Sys Cash</th>
+                                    <th className="px-4 py-3 font-bold text-right text-gray-800">Mgr Cash</th>
+                                    <th className="px-4 py-3 font-bold text-right text-indigo-700">Cash Var</th>
                                     
                                     {/* UPI Headers */}
-                                    <th className="px-3 py-2.5 font-bold text-right border-l border-gray-200 text-gray-800">Sys UPI</th>
-                                    <th className="px-3 py-2.5 font-bold text-right text-gray-800">Mgr UPI</th>
-                                    <th className="px-3 py-2.5 font-bold text-right text-indigo-700">UPI Var</th>
+                                    <th className="px-4 py-3 font-bold text-right border-l border-gray-200 text-gray-800">Sys UPI</th>
+                                    <th className="px-4 py-3 font-bold text-right text-gray-800">Mgr UPI</th>
+                                    <th className="px-4 py-3 font-bold text-right text-indigo-700">UPI Var</th>
                                     
                                     {/* Card Headers */}
-                                    <th className="px-3 py-2.5 font-bold text-right border-l border-gray-200 text-gray-800">Sys Card</th>
-                                    <th className="px-3 py-2.5 font-bold text-right text-gray-800">Mgr Card</th>
-                                    <th className="px-3 py-2.5 font-bold text-right text-indigo-700">Card Var</th>
+                                    <th className="px-4 py-3 font-bold text-right border-l border-gray-200 text-gray-800">Sys Card</th>
+                                    <th className="px-4 py-3 font-bold text-right text-gray-800">Mgr Card</th>
+                                    <th className="px-4 py-3 font-bold text-right text-indigo-700">Card Var</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {paymentReportData.records.map((day, index) => (
                                     <tr key={`pay-${index}`} className="border-b border-gray-100 hover:bg-sky-50/30 transition-colors">
-                                      <td className="px-3 py-1.5 text-gray-800 font-bold whitespace-nowrap">{day.displayDate}</td>
-                                      <td className="px-3 py-1.5 text-gray-600 font-medium whitespace-nowrap">{day.location}</td>
-                                      <td className="px-3 py-1.5 text-gray-500 whitespace-nowrap truncate max-w-[120px]">{day.mgrManagerName}</td>
+                                      <td className="px-4 py-2.5 text-gray-800 font-bold whitespace-nowrap">{day.displayDate}</td>
+                                      <td className="px-4 py-2.5 text-gray-600 font-medium whitespace-nowrap">{day.location}</td>
+                                      <td className="px-4 py-2.5 text-gray-500 whitespace-nowrap truncate max-w-[120px]">{day.mgrManagerName}</td>
                                       
                                       {/* Cash Data */}
-                                      <td className="px-3 py-1.5 text-right border-l border-gray-100">{formatCurrency(day.sysClosingCash)}</td>
-                                      <td className="px-3 py-1.5 text-right font-medium">{formatCurrency(day.mgrClosingCash)}</td>
-                                      <td className={`px-3 py-1.5 text-right font-bold ${day.cashVar < 0 ? 'text-red-600 bg-red-50/50' : day.cashVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
+                                      <td className="px-4 py-2.5 text-right border-l border-gray-100">{formatCurrency(day.sysClosingCash)}</td>
+                                      <td className="px-4 py-2.5 text-right font-medium">{formatCurrency(day.mgrClosingCash)}</td>
+                                      <td className={`px-4 py-2.5 text-right font-bold ${day.cashVar < 0 ? 'text-red-600 bg-red-50/50' : day.cashVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
                                         <button 
                                           onClick={() => setSelectedCashVarDetail(day)}
                                           className={`hover:underline underline-offset-2 ${day.cashVar !== 0 ? 'cursor-pointer' : 'cursor-pointer'}`}
@@ -1766,16 +1766,16 @@
                                       </td>
                                       
                                       {/* UPI Data */}
-                                      <td className="px-3 py-1.5 text-right border-l border-gray-100">{formatCurrency(day.sysUpi)}</td>
-                                      <td className="px-3 py-1.5 text-right font-medium">{formatCurrency(day.mgrUpi)}</td>
-                                      <td className={`px-3 py-1.5 text-right font-bold ${day.upiVar < 0 ? 'text-red-600 bg-red-50/50' : day.upiVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
+                                      <td className="px-4 py-2.5 text-right border-l border-gray-100">{formatCurrency(day.sysUpi)}</td>
+                                      <td className="px-4 py-2.5 text-right font-medium">{formatCurrency(day.mgrUpi)}</td>
+                                      <td className={`px-4 py-2.5 text-right font-bold ${day.upiVar < 0 ? 'text-red-600 bg-red-50/50' : day.upiVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
                                         {day.upiVar > 0 ? '+' : ''}{formatCurrency(day.upiVar)}
                                       </td>
 
                                       {/* Card Data */}
-                                      <td className="px-3 py-1.5 text-right border-l border-gray-100">{formatCurrency(day.sysCard)}</td>
-                                      <td className="px-3 py-1.5 text-right font-medium">{formatCurrency(day.mgrCard)}</td>
-                                      <td className={`px-3 py-1.5 text-right font-bold ${day.cardVar < 0 ? 'text-red-600 bg-red-50/50' : day.cardVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
+                                      <td className="px-4 py-2.5 text-right border-l border-gray-100">{formatCurrency(day.sysCard)}</td>
+                                      <td className="px-4 py-2.5 text-right font-medium">{formatCurrency(day.mgrCard)}</td>
+                                      <td className={`px-4 py-2.5 text-right font-bold ${day.cardVar < 0 ? 'text-red-600 bg-red-50/50' : day.cardVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
                                         {day.cardVar > 0 ? '+' : ''}{formatCurrency(day.cardVar)}
                                       </td>
                                     </tr>
@@ -1823,13 +1823,13 @@
                               <table className="w-full text-left border-collapse min-w-[700px] text-sm">
                                 <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
                                   <tr className="border-b border-gray-200 text-gray-600">
-                                    <th className="px-4 py-2.5 font-semibold whitespace-nowrap">Month</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right">Cash</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right">Card</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right">Paytm</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right">UPI</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right text-green-700">Total Sales</th>
-                                    <th className="px-4 py-2.5 font-semibold text-right text-red-600">Total Exp</th>
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Month</th>
+                                    <th className="px-4 py-3 font-semibold text-right">Cash</th>
+                                    <th className="px-4 py-3 font-semibold text-right">Card</th>
+                                    <th className="px-4 py-3 font-semibold text-right">Paytm</th>
+                                    <th className="px-4 py-3 font-semibold text-right">UPI</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-green-700">Total Sales</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-red-600">Total Exp</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -1888,23 +1888,23 @@
                             <table className="w-full text-left border-collapse text-sm">
                               <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
                                 <tr className="border-b border-gray-200 text-gray-600">
-                                  <th className="px-5 py-2.5 font-semibold">Saloon Location</th>
-                                  <th className="px-5 py-2.5 font-semibold text-right text-emerald-800">Live Cash Balance</th>
+                                  <th className="px-5 py-3 font-semibold">Saloon Location</th>
+                                  <th className="px-5 py-3 font-semibold text-right text-emerald-800">Live Cash Balance</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {liveCashData.breakdown.map((loc, index) => (
                                   <tr key={`live-${index}`} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                                    <td className="px-5 py-2 text-gray-800 font-medium">{loc.location}</td>
-                                    <td className="px-5 py-2 text-right font-bold text-emerald-700 bg-emerald-50/30">
+                                    <td className="px-5 py-2.5 text-gray-800 font-medium">{loc.location}</td>
+                                    <td className="px-5 py-2.5 text-right font-bold text-emerald-700 bg-emerald-50/30">
                                       {formatCurrency(loc.liveBalance)}
                                     </td>
                                   </tr>
                                 ))}
                                 {/* Grand Total Row */}
                                 <tr className="bg-gray-100 border-t-2 border-gray-300 font-bold text-gray-900 sticky bottom-0">
-                                  <td className="px-5 py-3">ALL LOCATIONS (GRAND TOTAL)</td>
-                                  <td className="px-5 py-3 text-right text-emerald-800 text-base">{formatCurrency(liveCashData.overallBalance)}</td>
+                                  <td className="px-5 py-3.5">ALL LOCATIONS (GRAND TOTAL)</td>
+                                  <td className="px-5 py-3.5 text-right text-emerald-800 text-base">{formatCurrency(liveCashData.overallBalance)}</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -1918,22 +1918,22 @@
 
               {/* Expense Drill-Down Modal */}
               {selectedExpenseForDetail && (
-                <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-sm">
-                  <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-5 py-4 border-b border-gray-100 bg-gray-50 gap-3">
+                <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+                  <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-6 py-5 border-b border-gray-100 bg-gray-50 gap-4">
                       <div>
-                        <h3 className="text-lg font-bold text-gray-900">{selectedExpenseForDetail.head}</h3>
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <h3 className="text-xl font-bold text-gray-900">{selectedExpenseForDetail.head}</h3>
+                        <p className="text-sm text-gray-500 mt-1">
                           Total: <span className="font-bold text-indigo-600">{formatCurrency(modalFilteredTotal)}</span> 
-                          <span className="mx-1.5">•</span> 
+                          <span className="mx-2">•</span> 
                           {modalFilteredDetails.length} Transaction(s)
                         </p>
                       </div>
-                      <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <div className="flex items-center gap-3 w-full sm:w-auto">
                         <select
                           value={modalLocationFilter}
                           onChange={(e) => setModalLocationFilter(e.target.value)}
-                          className="border border-gray-300 rounded-lg px-2 py-1.5 focus:ring-2 focus:ring-indigo-500 outline-none transition-all bg-white text-gray-800 text-xs flex-1 sm:flex-none"
+                          className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none transition-all bg-white text-gray-800 text-sm flex-1 sm:flex-none cursor-pointer shadow-sm"
                         >
                           <option value="All">All Locations</option>
                           {modalLocations.map((loc, idx) => (
@@ -1942,54 +1942,63 @@
                         </select>
                         <button 
                           onClick={handleExportModalDetails}
-                          className="flex items-center justify-center bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 p-1.5 rounded-lg transition-colors shadow-sm"
+                          className="flex items-center justify-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm"
                           title="Export CSV"
                         >
-                          <Download className="w-4 h-4" />
+                          <Download className="w-4 h-4" /> Export
                         </button>
                         <button 
                           onClick={() => { setSelectedExpenseForDetail(null); setModalLocationFilter('All'); }}
-                          className="p-1 text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors shrink-0"
+                          className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors shrink-0 ml-1"
                         >
-                          <X className="w-5 h-5" />
+                          <X className="w-6 h-6" />
                         </button>
                       </div>
                     </div>
 
-                    <div className="overflow-y-auto p-0 scrollbar-hide">
-                      <table className="w-full text-left border-collapse text-xs">
+                    <div className="overflow-y-auto p-0 scrollbar-hide flex-1">
+                      <table className="w-full text-left border-collapse text-sm">
                         <thead className="sticky top-0 bg-white shadow-sm ring-1 ring-black/5 z-10">
-                          <tr className="text-gray-600 bg-gray-50/90 backdrop-blur-md">
-                            <th className="px-4 py-2 font-semibold whitespace-nowrap border-b border-gray-200">Date</th>
-                            <th className="px-4 py-2 font-semibold border-b border-gray-200">Remarks / SubHead</th>
-                            <th className="px-4 py-2 font-semibold border-b border-gray-200">Location</th>
-                            <th className="px-4 py-2 font-semibold text-right whitespace-nowrap border-b border-gray-200">Exp Amt</th>
+                          <tr className="text-gray-500 bg-gray-100/90 backdrop-blur-md uppercase tracking-wider text-xs">
+                            <th className="px-6 py-3.5 font-bold whitespace-nowrap border-b border-gray-200">Date</th>
+                            <th className="px-6 py-3.5 font-bold border-b border-gray-200">Remarks / SubHead</th>
+                            <th className="px-6 py-3.5 font-bold border-b border-gray-200">Location</th>
+                            <th className="px-6 py-3.5 font-bold text-right whitespace-nowrap border-b border-gray-200">Exp Amt</th>
                             {selectedExpenseForDetail.head?.trim() === 'Incentive Expenses' && (
-                                <th className="px-4 py-2 font-semibold border-b border-gray-200">Sold By</th>
+                                <th className="px-6 py-3.5 font-bold border-b border-gray-200">Sold By</th>
                             )}
                           </tr>
                         </thead>
                         <tbody>
                           {modalFilteredDetails.map((item, idx) => (
-                            <tr key={`mod-${idx}`} className="border-b border-gray-50 hover:bg-blue-50/40 transition-colors">
-                              <td className="px-4 py-2 text-gray-600 whitespace-nowrap">{item.displayDate || 'Unknown Date'}</td>
-                              <td className="px-4 py-2 text-gray-800">{item.remarks || <span className="text-gray-400 italic">No remarks</span>}</td>
-                              <td className="px-4 py-2 text-gray-800 whitespace-nowrap truncate max-w-[120px]">{item.location || 'Unknown'}</td>
-                              <td className="px-4 py-2 text-right text-gray-900 font-medium whitespace-nowrap">
+                            <tr key={`mod-${idx}`} className="border-b border-gray-100 hover:bg-indigo-50/30 transition-colors">
+                              <td className="px-6 py-3.5 text-gray-600 whitespace-nowrap">{item.displayDate || 'Unknown Date'}</td>
+                              <td className="px-6 py-3.5 text-gray-800 font-medium">{item.remarks || <span className="text-gray-400 italic">No remarks</span>}</td>
+                              <td className="px-6 py-3.5 text-gray-600 whitespace-nowrap">{item.location || 'Unknown'}</td>
+                              <td className="px-6 py-3.5 text-right text-gray-900 font-bold whitespace-nowrap">
                                 {formatCurrency(item.expenseAmount)}
                               </td>
                               {selectedExpenseForDetail.head?.trim() === 'Incentive Expenses' && (
-                                <td className="px-4 py-2 text-gray-800 whitespace-nowrap">{item.soldBy || '-'}</td>
+                                <td className="px-6 py-3.5 text-gray-600 whitespace-nowrap">{item.soldBy || '-'}</td>
                               )}
                             </tr>
                           ))}
                           {modalFilteredDetails.length === 0 && (
                             <tr>
-                              <td colSpan="5" className="p-6 text-center text-gray-500">No transactions found for this location.</td>
+                              <td colSpan="5" className="p-10 text-center text-gray-500 text-base">No transactions found for this location.</td>
                             </tr>
                           )}
                         </tbody>
                       </table>
+                    </div>
+                    
+                    <div className="p-4 border-t border-gray-100 bg-gray-50 text-right">
+                      <button 
+                        onClick={() => { setSelectedExpenseForDetail(null); setModalLocationFilter('All'); }}
+                        className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors text-sm"
+                      >
+                        Close View
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -2052,39 +2061,39 @@
                                   </thead>
                                   <tbody className="divide-y divide-gray-100">
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-purple-100 border border-purple-300 rounded-sm inline-block"></span> ₹500</td>
-                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n500 || 0}</td>
-                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n500 || 0) * 500)}</td>
+                                          <td className="py-1.5 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-purple-100 border border-purple-300 rounded-sm inline-block"></span> ₹500</td>
+                                          <td className="py-1.5 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n500 || 0}</td>
+                                          <td className="py-1.5 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n500 || 0) * 500)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-orange-100 border border-orange-300 rounded-sm inline-block"></span> ₹200</td>
-                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n200 || 0}</td>
-                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n200 || 0) * 200)}</td>
+                                          <td className="py-1.5 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-orange-100 border border-orange-300 rounded-sm inline-block"></span> ₹200</td>
+                                          <td className="py-1.5 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n200 || 0}</td>
+                                          <td className="py-1.5 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n200 || 0) * 200)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-blue-100 border border-blue-300 rounded-sm inline-block"></span> ₹100</td>
-                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n100 || 0}</td>
-                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n100 || 0) * 100)}</td>
+                                          <td className="py-1.5 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-blue-100 border border-blue-300 rounded-sm inline-block"></span> ₹100</td>
+                                          <td className="py-1.5 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n100 || 0}</td>
+                                          <td className="py-1.5 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n100 || 0) * 100)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-cyan-100 border border-cyan-300 rounded-sm inline-block"></span> ₹50</td>
-                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n50 || 0}</td>
-                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n50 || 0) * 50)}</td>
+                                          <td className="py-1.5 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-cyan-100 border border-cyan-300 rounded-sm inline-block"></span> ₹50</td>
+                                          <td className="py-1.5 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n50 || 0}</td>
+                                          <td className="py-1.5 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n50 || 0) * 50)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-red-100 border border-red-300 rounded-sm inline-block"></span> ₹20</td>
-                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n20 || 0}</td>
-                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n20 || 0) * 20)}</td>
+                                          <td className="py-1.5 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-red-100 border border-red-300 rounded-sm inline-block"></span> ₹20</td>
+                                          <td className="py-1.5 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n20 || 0}</td>
+                                          <td className="py-1.5 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n20 || 0) * 20)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-amber-100 border border-amber-300 rounded-sm inline-block"></span> ₹10</td>
-                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n10 || 0}</td>
-                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n10 || 0) * 10)}</td>
+                                          <td className="py-1.5 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-amber-100 border border-amber-300 rounded-sm inline-block"></span> ₹10</td>
+                                          <td className="py-1.5 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n10 || 0}</td>
+                                          <td className="py-1.5 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n10 || 0) * 10)}</td>
                                       </tr>
                                       <tr className="bg-gray-50">
-                                          <td className="py-1.5 px-3 font-medium text-gray-700 flex items-center gap-2">🪙 Loose</td>
-                                          <td className="py-1.5 px-3 text-center text-gray-400">-</td>
-                                          <td className="py-1.5 px-3 text-right font-medium">{formatCurrency(selectedCashVarDetail.mgrNotes?.loose || 0)}</td>
+                                          <td className="py-2 px-3 font-medium text-gray-700 flex items-center gap-2">🪙 Loose</td>
+                                          <td className="py-2 px-3 text-center text-gray-400">-</td>
+                                          <td className="py-2 px-3 text-right font-medium">{formatCurrency(selectedCashVarDetail.mgrNotes?.loose || 0)}</td>
                                       </tr>
                                   </tbody>
                               </table>
