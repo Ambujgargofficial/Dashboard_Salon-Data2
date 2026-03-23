@@ -1078,14 +1078,14 @@
           };
 
           return (
-            <div className="min-h-screen bg-gray-50 text-gray-800 p-4 md:p-8 font-sans">
-              <div className="max-w-[1600px] w-full mx-auto space-y-6">
+            <div className="min-h-screen bg-gray-50 text-gray-800 p-4 md:p-6 font-sans">
+              <div className="max-w-6xl w-full mx-auto space-y-4">
                 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100">
                   <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Branch Management Dashboard</h1>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <h1 className="text-xl md:text-2xl font-bold text-gray-900">Branch Management Dashboard</h1>
+                    <p className="text-xs text-gray-500 mt-1">
                       Analyzing {data.length.toLocaleString()} rows of data
                     </p>
                   </div>
@@ -1093,7 +1093,7 @@
                   <button 
                     onClick={fetchData}
                     disabled={loading}
-                    className="mt-4 md:mt-0 flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50"
+                    className="mt-3 md:mt-0 flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors disabled:opacity-50"
                   >
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
                     Refresh Data
@@ -1102,61 +1102,61 @@
 
                 {/* Error */}
                 {error && (
-                  <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-xl flex items-start gap-3 animate-in fade-in">
+                  <div className="bg-red-50 border-l-4 border-red-500 p-3 rounded-lg flex items-start gap-3 animate-in fade-in">
                     <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 shrink-0" />
                     <div>
-                      <h3 className="text-red-800 font-medium">System Alert</h3>
-                      <p className="text-red-600 text-sm mt-1">{error}</p>
+                      <h3 className="text-red-800 font-medium text-sm">System Alert</h3>
+                      <p className="text-red-600 text-xs mt-1">{error}</p>
                     </div>
                   </div>
                 )}
 
                 {/* Filters */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-blue-500" />
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                  <div className="flex justify-between items-center mb-3">
+                    <h2 className="text-base font-semibold text-gray-800 flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-blue-500" />
                       Master Filters
                     </h2>
                     {(startDate || endDate || selectedLocation !== 'All') && (
                       <button 
                         onClick={() => { setStartDate(''); setEndDate(''); setSelectedLocation('All'); }}
-                        className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                        className="text-xs text-blue-600 hover:text-blue-800 font-medium transition-colors"
                       >
                         Clear Filters
                       </button>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="flex flex-col space-y-2">
-                      <label className="text-sm font-medium text-gray-600">Start Date</label>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                      <label className="text-xs font-medium text-gray-600">Start Date</label>
                       <input 
                         type="date" 
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
-                        className="border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all w-full"
+                        className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all w-full text-sm"
                       />
                     </div>
                     
-                    <div className="flex flex-col space-y-2">
-                      <label className="text-sm font-medium text-gray-600">End Date</label>
+                    <div className="flex flex-col space-y-1.5">
+                      <label className="text-xs font-medium text-gray-600">End Date</label>
                       <input 
                         type="date" 
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
-                        className="border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all w-full"
+                        className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all w-full text-sm"
                       />
                     </div>
 
-                    <div className="flex flex-col space-y-2">
-                      <label className="text-sm font-medium text-gray-600 flex items-center gap-1">
+                    <div className="flex flex-col space-y-1.5">
+                      <label className="text-xs font-medium text-gray-600 flex items-center gap-1">
                         📍 Saloon Location
                       </label>
                       <select
                         value={selectedLocation}
                         onChange={(e) => setSelectedLocation(e.target.value)}
-                        className="border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all w-full bg-white text-gray-800"
+                        className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all w-full bg-white text-gray-800 text-sm"
                       >
                         <option value="All">All Locations</option>
                         {locations.map((loc, idx) => (
@@ -1168,18 +1168,18 @@
                 </div>
 
                 {/* Tab Navigation */}
-                <div className="flex space-x-2 bg-white p-2 rounded-xl shadow-sm border border-gray-100 w-full overflow-x-auto scrollbar-hide">
+                <div className="flex space-x-2 bg-white p-1.5 rounded-xl shadow-sm border border-gray-100 w-full overflow-x-auto scrollbar-hide">
                   <button
                     onClick={() => setActiveTab('sales')}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                       activeTab === 'sales' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
-                    📈 Sales Dashboard
+                    📈 Sales
                   </button>
                   <button
                     onClick={() => setActiveTab('raw')}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                       activeTab === 'raw' ? 'bg-cyan-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
@@ -1187,47 +1187,47 @@
                   </button>
                   <button
                     onClick={() => setActiveTab('expenses')}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                       activeTab === 'expenses' ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
-                    🧾 Expense Report
+                    🧾 Expenses
                   </button>
                   <button
                     onClick={() => setActiveTab('budget')}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                       activeTab === 'budget' ? 'bg-pink-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
-                    🎯 Budget Report
+                    🎯 Budget
                   </button>
                   <button
                     onClick={() => setActiveTab('cash')}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                       activeTab === 'cash' ? 'bg-teal-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
-                    💼 Cash Report
+                    💼 Cash Flow
                   </button>
                   <button
                     onClick={() => setActiveTab('payment')}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                       activeTab === 'payment' ? 'bg-sky-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
-                    📝 Payment Report
+                    📝 Variances
                   </button>
                   <button
                     onClick={() => setActiveTab('monthly')}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                       activeTab === 'monthly' ? 'bg-violet-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
-                    📅 Monthly Report
+                    📅 Monthly
                   </button>
                   <button
                     onClick={() => setActiveTab('live')}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                       activeTab === 'live' ? 'bg-emerald-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
@@ -1237,65 +1237,65 @@
 
                 {/* Dynamic Area */}
                 {loading && data.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                    <Loader2 className="w-10 h-10 text-blue-500 animate-spin mb-4" />
-                    <p className="text-gray-500 font-medium">Data processing, please wait...</p>
+                  <div className="flex flex-col items-center justify-center py-16 bg-white rounded-xl border border-gray-100 shadow-sm">
+                    <Loader2 className="w-8 h-8 text-blue-500 animate-spin mb-3" />
+                    <p className="text-gray-500 text-sm font-medium">Data processing, please wait...</p>
                   </div>
                 ) : (
                   <>
                     {/* View 1: Sales */}
                     {activeTab === 'sales' && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-white p-4 xl:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 hover:shadow-md transition-all">
-                          <div className="bg-green-100 p-3 xl:p-4 rounded-xl shrink-0">
-                            <IndianRupee className="w-6 h-6 xl:w-8 xl:h-8 text-green-600" />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3">
+                          <div className="bg-green-100 p-2.5 rounded-lg shrink-0">
+                            <IndianRupee className="w-5 h-5 text-green-600" />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-gray-500 truncate">Total Cash</p>
-                            <p className="text-lg xl:text-2xl font-bold text-gray-900 break-words tracking-tight">{formatCurrency(salesTotals.cash)}</p>
+                            <p className="text-xs font-medium text-gray-500 truncate">Total Cash</p>
+                            <p className="text-lg font-bold text-gray-900 truncate">{formatCurrency(salesTotals.cash)}</p>
                           </div>
                         </div>
 
-                        <div className="bg-white p-4 xl:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 hover:shadow-md transition-all">
-                          <div className="bg-blue-100 p-3 xl:p-4 rounded-xl shrink-0">
-                            <CreditCard className="w-6 h-6 xl:w-8 xl:h-8 text-blue-600" />
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3">
+                          <div className="bg-blue-100 p-2.5 rounded-lg shrink-0">
+                            <CreditCard className="w-5 h-5 text-blue-600" />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-gray-500 truncate">Total Card</p>
-                            <p className="text-lg xl:text-2xl font-bold text-gray-900 break-words tracking-tight">{formatCurrency(salesTotals.card)}</p>
+                            <p className="text-xs font-medium text-gray-500 truncate">Total Card</p>
+                            <p className="text-lg font-bold text-gray-900 truncate">{formatCurrency(salesTotals.card)}</p>
                           </div>
                         </div>
 
-                        <div className="bg-white p-4 xl:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 hover:shadow-md transition-all">
-                          <div className="bg-cyan-100 p-3 xl:p-4 rounded-xl shrink-0">
-                            <Smartphone className="w-6 h-6 xl:w-8 xl:h-8 text-cyan-600" />
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3">
+                          <div className="bg-cyan-100 p-2.5 rounded-lg shrink-0">
+                            <Smartphone className="w-5 h-5 text-cyan-600" />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-gray-500 truncate">Total Paytm</p>
-                            <p className="text-lg xl:text-2xl font-bold text-gray-900 break-words tracking-tight">{formatCurrency(salesTotals.paytm)}</p>
+                            <p className="text-xs font-medium text-gray-500 truncate">Total Paytm</p>
+                            <p className="text-lg font-bold text-gray-900 truncate">{formatCurrency(salesTotals.paytm)}</p>
                           </div>
                         </div>
 
-                        <div className="bg-white p-4 xl:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 hover:shadow-md transition-all">
-                          <div className="bg-purple-100 p-3 xl:p-4 rounded-xl shrink-0">
-                            <Smartphone className="w-6 h-6 xl:w-8 xl:h-8 text-purple-600" />
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3">
+                          <div className="bg-purple-100 p-2.5 rounded-lg shrink-0">
+                            <Smartphone className="w-5 h-5 text-purple-600" />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-gray-500 truncate">Total Barcode-UPI</p>
-                            <p className="text-lg xl:text-2xl font-bold text-gray-900 break-words tracking-tight">{formatCurrency(salesTotals.upi)}</p>
+                            <p className="text-xs font-medium text-gray-500 truncate">Total Barcode-UPI</p>
+                            <p className="text-lg font-bold text-gray-900 truncate">{formatCurrency(salesTotals.upi)}</p>
                           </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-700 flex items-center gap-4 md:col-span-2 lg:col-span-4 text-white relative overflow-hidden">
+                        <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl shadow-md border border-gray-700 flex items-center gap-4 sm:col-span-2 lg:col-span-4 text-white relative overflow-hidden">
                           <div className="absolute right-0 top-0 opacity-10 pointer-events-none">
-                             <Calculator className="w-48 h-48 -mr-10 -mt-10" />
+                             <Calculator className="w-32 h-32 -mr-6 -mt-6" />
                           </div>
-                          <div className="bg-white/10 p-4 md:p-5 rounded-2xl backdrop-blur-sm z-10 shrink-0">
-                            <Calculator className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                          <div className="bg-white/10 p-3 rounded-xl backdrop-blur-sm z-10 shrink-0">
+                            <Calculator className="w-6 h-6 text-white" />
                           </div>
                           <div className="z-10 overflow-hidden">
-                            <p className="text-sm md:text-base font-medium text-gray-300">Total Amount Paid (Sales)</p>
-                            <p className="text-3xl md:text-5xl font-bold truncate mt-1">{formatCurrency(salesTotals.totalPaid)}</p>
+                            <p className="text-xs md:text-sm font-medium text-gray-300">Total Amount Paid (Sales)</p>
+                            <p className="text-2xl md:text-3xl font-bold truncate mt-0.5">{formatCurrency(salesTotals.totalPaid)}</p>
                           </div>
                         </div>
                       </div>
@@ -1303,93 +1303,90 @@
 
                     {/* View 2: Raw Data */}
                     {activeTab === 'raw' && (
-                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                        <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center gap-4">
                           <div>
-                            <h3 className="text-lg font-bold text-gray-800">Raw Data Table</h3>
-                            <p className="text-xs text-gray-500 mt-1">Full 16-column dataset matched with your filters.</p>
+                            <h3 className="text-base font-bold text-gray-800">Raw Data Table</h3>
                           </div>
                           <button 
                             onClick={handleExportRawData}
-                            className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors shadow-sm"
+                            className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm"
                           >
-                            <Download className="w-4 h-4" /> Export CSV
+                            <Download className="w-3.5 h-3.5" /> Export CSV
                           </button>
                         </div>
 
                         {filteredData.length > 500 && (
-                          <div className="bg-amber-50 text-amber-800 p-3 px-6 text-sm font-medium border-b border-amber-200 flex items-center gap-2">
-                            <Info className="w-5 h-5 shrink-0" />
-                            Showing the first 500 rows to ensure fast performance. The totals above the headers are accurately calculated from ALL {filteredData.length} rows! Please use filters to narrow down the view.
+                          <div className="bg-amber-50 text-amber-800 px-5 py-2 text-xs font-medium border-b border-amber-200 flex items-center gap-2">
+                            <Info className="w-4 h-4 shrink-0" />
+                            Showing top 500 rows. Export to see all.
                           </div>
                         )}
 
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-left border-collapse text-sm whitespace-nowrap">
+                        <div className="overflow-x-auto max-h-[600px]">
+                          <table className="w-full text-left border-collapse text-xs whitespace-nowrap">
                             <thead className="bg-gray-50 border-b-2 border-gray-200 shadow-sm sticky top-0 z-10">
-                              {/* Totals Row */}
                               <tr className="border-b border-gray-200">
-                                <th className="p-3 font-semibold text-gray-400"></th>
-                                <th className="p-3 font-semibold text-gray-400"></th>
-                                <th className="p-3 font-bold text-right text-green-700 bg-green-50">{formatCurrency(salesTotals.cash)}</th>
-                                <th className="p-3 font-bold text-right text-blue-700 bg-blue-50">{formatCurrency(salesTotals.card)}</th>
-                                <th className="p-3 font-bold text-right text-cyan-700 bg-cyan-50">{formatCurrency(salesTotals.paytm)}</th>
-                                <th className="p-3 font-bold text-right text-purple-700 bg-purple-50">{formatCurrency(salesTotals.upi)}</th>
-                                <th className="p-3 font-bold text-right text-gray-900 bg-yellow-300">{formatCurrency(salesTotals.totalPaid)}</th>
-                                <th className="p-3 font-semibold text-gray-400"></th>
-                                <th className="p-3 font-bold text-right text-gray-800 bg-gray-200">{formatCurrency(rawDataTotals.addOnValue)}</th>
-                                <th className="p-3 font-semibold text-gray-400"></th>
-                                <th className="p-3 font-bold text-right text-gray-800 bg-gray-200">{formatCurrency(rawDataTotals.incentive)}</th>
-                                <th className="p-3 font-bold text-right text-indigo-700 bg-indigo-50">Bank Deposit:</th>
-                                <th className="p-3 font-bold text-left text-indigo-700 bg-indigo-50">{formatCurrency(rawDataTotals.bankDeposit)}</th>
-                                <th className="p-3 font-bold text-right text-red-700 bg-red-100">{formatCurrency(expenseData.grandTotal)}</th>
-                                <th className="p-3 font-semibold text-gray-400"></th>
-                                <th className="p-3 font-semibold text-gray-400"></th>
+                                <th className="px-3 py-2 font-semibold text-gray-400"></th>
+                                <th className="px-3 py-2 font-semibold text-gray-400"></th>
+                                <th className="px-3 py-2 font-bold text-right text-green-700 bg-green-50">{formatCurrency(salesTotals.cash)}</th>
+                                <th className="px-3 py-2 font-bold text-right text-blue-700 bg-blue-50">{formatCurrency(salesTotals.card)}</th>
+                                <th className="px-3 py-2 font-bold text-right text-cyan-700 bg-cyan-50">{formatCurrency(salesTotals.paytm)}</th>
+                                <th className="px-3 py-2 font-bold text-right text-purple-700 bg-purple-50">{formatCurrency(salesTotals.upi)}</th>
+                                <th className="px-3 py-2 font-bold text-right text-gray-900 bg-yellow-300">{formatCurrency(salesTotals.totalPaid)}</th>
+                                <th className="px-3 py-2 font-semibold text-gray-400"></th>
+                                <th className="px-3 py-2 font-bold text-right text-gray-800 bg-gray-200">{formatCurrency(rawDataTotals.addOnValue)}</th>
+                                <th className="px-3 py-2 font-semibold text-gray-400"></th>
+                                <th className="px-3 py-2 font-bold text-right text-gray-800 bg-gray-200">{formatCurrency(rawDataTotals.incentive)}</th>
+                                <th className="px-3 py-2 font-bold text-right text-indigo-700 bg-indigo-50">Deposit:</th>
+                                <th className="px-3 py-2 font-bold text-left text-indigo-700 bg-indigo-50">{formatCurrency(rawDataTotals.bankDeposit)}</th>
+                                <th className="px-3 py-2 font-bold text-right text-red-700 bg-red-100">{formatCurrency(expenseData.grandTotal)}</th>
+                                <th className="px-3 py-2 font-semibold text-gray-400"></th>
+                                <th className="px-3 py-2 font-semibold text-gray-400"></th>
                               </tr>
-                              {/* Standard Headers */}
-                              <tr className="text-gray-700">
-                                <th className="p-3 font-semibold">Date</th>
-                                <th className="p-3 font-semibold">Invoice No.</th>
-                                <th className="p-3 font-semibold text-right">Cash</th>
-                                <th className="p-3 font-semibold text-right">Card</th>
-                                <th className="p-3 font-semibold text-right">Paytm</th>
-                                <th className="p-3 font-semibold text-right">Barcode-UPI</th>
-                                <th className="p-3 font-semibold text-right">Total Amout Paid</th>
-                                <th className="p-3 font-semibold">Add-On</th>
-                                <th className="p-3 font-semibold text-right">Add-On Value</th>
-                                <th className="p-3 font-semibold">Sold By</th>
-                                <th className="p-3 font-semibold text-right">Incentive</th>
-                                <th className="p-3 font-semibold">Expense Head</th>
-                                <th className="p-3 font-semibold">Remarks/ SubHead</th>
-                                <th className="p-3 font-semibold text-right">Expense Amount</th>
-                                <th className="p-3 font-semibold">Saloon Location</th>
-                                <th className="p-3 font-semibold">User Emp Name</th>
+                              <tr className="text-gray-700 bg-gray-100">
+                                <th className="px-3 py-2 font-semibold">Date</th>
+                                <th className="px-3 py-2 font-semibold">Invoice No.</th>
+                                <th className="px-3 py-2 font-semibold text-right">Cash</th>
+                                <th className="px-3 py-2 font-semibold text-right">Card</th>
+                                <th className="px-3 py-2 font-semibold text-right">Paytm</th>
+                                <th className="px-3 py-2 font-semibold text-right">Barcode-UPI</th>
+                                <th className="px-3 py-2 font-semibold text-right">Total Paid</th>
+                                <th className="px-3 py-2 font-semibold">Add-On</th>
+                                <th className="px-3 py-2 font-semibold text-right">Add-On Val</th>
+                                <th className="px-3 py-2 font-semibold">Sold By</th>
+                                <th className="px-3 py-2 font-semibold text-right">Incentive</th>
+                                <th className="px-3 py-2 font-semibold">Expense Head</th>
+                                <th className="px-3 py-2 font-semibold">Remarks</th>
+                                <th className="px-3 py-2 font-semibold text-right">Exp Amt</th>
+                                <th className="px-3 py-2 font-semibold">Location</th>
+                                <th className="px-3 py-2 font-semibold">Emp Name</th>
                               </tr>
                             </thead>
                             <tbody>
                               {filteredData.slice(0, 500).map((row, idx) => (
                                 <tr key={`raw-${idx}`} className="border-b border-gray-100 hover:bg-gray-50/80 transition-colors text-gray-600">
-                                  <td className="p-3">{row.displayDate}</td>
-                                  <td className="p-3">{row.invoiceNo}</td>
-                                  <td className="p-3 text-right">{row.cash || 0}</td>
-                                  <td className="p-3 text-right">{row.card || 0}</td>
-                                  <td className="p-3 text-right">{row.paytm || 0}</td>
-                                  <td className="p-3 text-right">{row.upi || 0}</td>
-                                  <td className="p-3 text-right font-medium text-gray-800 bg-yellow-50/30">{row.totalPaid || 0}</td>
-                                  <td className="p-3">{row.addOn}</td>
-                                  <td className="p-3 text-right">{row.addOnValue || 0}</td>
-                                  <td className="p-3">{row.soldBy}</td>
-                                  <td className="p-3 text-right">{row.incentive || 0}</td>
-                                  <td className="p-3">{row.expenseHead}</td>
-                                  <td className="p-3">{row.remarks}</td>
-                                  <td className="p-3 text-right text-red-600">{row.expenseAmount || 0}</td>
-                                  <td className="p-3">{row.location}</td>
-                                  <td className="p-3">{row.userEmpName}</td>
+                                  <td className="px-3 py-1.5">{row.displayDate}</td>
+                                  <td className="px-3 py-1.5">{row.invoiceNo}</td>
+                                  <td className="px-3 py-1.5 text-right">{row.cash || 0}</td>
+                                  <td className="px-3 py-1.5 text-right">{row.card || 0}</td>
+                                  <td className="px-3 py-1.5 text-right">{row.paytm || 0}</td>
+                                  <td className="px-3 py-1.5 text-right">{row.upi || 0}</td>
+                                  <td className="px-3 py-1.5 text-right font-medium text-gray-800 bg-yellow-50/30">{row.totalPaid || 0}</td>
+                                  <td className="px-3 py-1.5">{row.addOn}</td>
+                                  <td className="px-3 py-1.5 text-right">{row.addOnValue || 0}</td>
+                                  <td className="px-3 py-1.5">{row.soldBy}</td>
+                                  <td className="px-3 py-1.5 text-right">{row.incentive || 0}</td>
+                                  <td className="px-3 py-1.5 truncate max-w-[150px]">{row.expenseHead}</td>
+                                  <td className="px-3 py-1.5 truncate max-w-[150px]">{row.remarks}</td>
+                                  <td className="px-3 py-1.5 text-right text-red-600">{row.expenseAmount || 0}</td>
+                                  <td className="px-3 py-1.5">{row.location}</td>
+                                  <td className="px-3 py-1.5">{row.userEmpName}</td>
                                 </tr>
                               ))}
                               {filteredData.length === 0 && (
                                 <tr>
-                                  <td colSpan="16" className="p-8 text-center text-gray-500">No raw data found for the selected filters.</td>
+                                  <td colSpan="16" className="px-3 py-6 text-center text-gray-500">No data found.</td>
                                 </tr>
                               )}
                             </tbody>
@@ -1400,46 +1397,46 @@
 
                     {/* View 3: Expenses */}
                     {activeTab === 'expenses' && (
-                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-indigo-600 p-6 md:p-8 rounded-2xl shadow-lg border border-indigo-700 flex items-center gap-4 text-white relative overflow-hidden mb-6">
-                          <div className="bg-white/10 p-4 md:p-5 rounded-2xl backdrop-blur-sm z-10 shrink-0">
-                            <span className="text-3xl">🧾</span>
+                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4">
+                        <div className="bg-indigo-600 p-5 rounded-xl shadow-md border border-indigo-700 flex items-center gap-4 text-white relative overflow-hidden">
+                          <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm z-10 shrink-0">
+                            <span className="text-2xl">🧾</span>
                           </div>
                           <div className="z-10 overflow-hidden">
-                            <p className="text-sm md:text-base font-medium text-indigo-200">Total Expenses Logged</p>
-                            <p className="text-3xl md:text-5xl font-bold truncate mt-1">{formatCurrency(expenseData.grandTotal)}</p>
+                            <p className="text-xs md:text-sm font-medium text-indigo-200">Total Expenses Logged</p>
+                            <p className="text-2xl md:text-3xl font-bold truncate mt-0.5">{formatCurrency(expenseData.grandTotal)}</p>
                           </div>
                         </div>
 
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row justify-between md:items-center gap-4">
-                            <h3 className="text-lg font-bold text-gray-800">Expense Summary by Head (Click Amount for Details)</h3>
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                          <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center gap-4">
+                            <h3 className="text-base font-bold text-gray-800">Expense Summary by Head <span className="text-xs font-normal text-gray-500 ml-1">(Click Amount for Details)</span></h3>
                             <button 
                               onClick={handleExportExpenses}
-                              className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors shadow-sm"
+                              className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm"
                             >
-                              <Download className="w-4 h-4" /> Export CSV
+                              <Download className="w-3.5 h-3.5" /> Export CSV
                             </button>
                           </div>
                           
                           {expenseData.summary.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">
+                            <div className="p-8 text-center text-sm text-gray-500">
                               <p>Is selected date/location mein koi expense nahi mila.</p>
                             </div>
                           ) : (
-                            <div className="overflow-x-auto">
-                              <table className="w-full text-left border-collapse">
-                                <thead>
-                                  <tr className="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
-                                    <th className="p-4 font-semibold">Expense Head</th>
-                                    <th className="p-4 font-semibold text-right w-1/3">Total Amount</th>
+                            <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
+                              <table className="w-full text-left border-collapse text-sm">
+                                <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
+                                  <tr className="border-b border-gray-200 text-gray-600">
+                                    <th className="px-5 py-2.5 font-semibold">Expense Head</th>
+                                    <th className="px-5 py-2.5 font-semibold text-right w-1/3">Total Amount</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {expenseData.summary.map(([head, expData], index) => (
-                                    <tr key={`exp-${index}`} className="border-b border-gray-50 hover:bg-blue-50/30 transition-colors">
-                                      <td className="p-4 text-gray-800 font-medium">{head}</td>
-                                      <td className="p-4 text-right">
+                                    <tr key={`exp-${index}`} className="border-b border-gray-100 hover:bg-blue-50/30 transition-colors">
+                                      <td className="px-5 py-2 text-gray-800 font-medium">{head}</td>
+                                      <td className="px-5 py-2 text-right">
                                         <button 
                                           onClick={() => {
                                               setSelectedExpenseForDetail({ head, details: expData.details, total: expData.amount });
@@ -1452,9 +1449,9 @@
                                       </td>
                                     </tr>
                                   ))}
-                                  <tr className="bg-gray-50/80 font-bold text-gray-900 border-t-2 border-gray-200">
-                                    <td className="p-4">Grand Total</td>
-                                    <td className="p-4 text-right text-indigo-700 text-lg">{formatCurrency(expenseData.grandTotal)}</td>
+                                  <tr className="bg-gray-50 font-bold text-gray-900 border-t-2 border-gray-200 sticky bottom-0">
+                                    <td className="px-5 py-3">Grand Total</td>
+                                    <td className="px-5 py-3 text-right text-indigo-700 text-base">{formatCurrency(expenseData.grandTotal)}</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -1466,46 +1463,43 @@
 
                     {/* View 8: Budget Report */}
                     {activeTab === 'budget' && (
-                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-pink-600 p-6 md:p-8 rounded-2xl shadow-lg border border-pink-700 flex items-center gap-4 text-white relative overflow-hidden mb-6">
-                          <div className="bg-white/10 p-4 md:p-5 rounded-2xl backdrop-blur-sm z-10 shrink-0">
-                            <PieChart className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4">
+                        <div className="bg-pink-600 p-5 rounded-xl shadow-md border border-pink-700 flex items-center gap-4 text-white relative overflow-hidden">
+                          <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm z-10 shrink-0">
+                            <PieChart className="w-6 h-6 text-white" />
                           </div>
                           <div className="z-10 overflow-hidden">
-                            <p className="text-sm md:text-base font-medium text-pink-100">Overall Budget Variance (Planned vs Actual)</p>
-                            <p className="text-3xl md:text-5xl font-bold truncate mt-1">
+                            <p className="text-xs md:text-sm font-medium text-pink-100">Overall Budget Variance (Planned vs Actual)</p>
+                            <p className="text-2xl md:text-3xl font-bold truncate mt-0.5">
                               {filteredBudgetTotals.variance > 0 ? '+' : ''}{formatCurrency(filteredBudgetTotals.variance)}
                             </p>
                           </div>
                         </div>
 
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col gap-4">
-                            <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                          <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50 flex flex-col gap-3">
+                            <div className="flex justify-between items-center gap-4">
                                 <div>
-                                    <h3 className="text-lg font-bold text-gray-800">Dynamic Budget Report</h3>
-                                    <p className="text-xs text-gray-500 mt-1">
-                                      Fetching plans via <strong className="text-gray-700">Budget Index</strong> mapping. Actuals strictly mapped to selected Year & Month.
-                                    </p>
+                                    <h3 className="text-base font-bold text-gray-800">Dynamic Budget Report</h3>
                                 </div>
                                 <button 
                                   onClick={handleExportBudgetReport}
-                                  className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-sm transition-colors shadow-sm"
+                                  className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm"
                                 >
-                                  <Download className="w-4 h-4" /> Export CSV
+                                  <Download className="w-3.5 h-3.5" /> Export
                                 </button>
                             </div>
 
                             {/* Dynamic Filters */}
-                            <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-gray-200">
-                                <div className="flex items-center gap-2">
-                                    <Target className="w-4 h-4 text-pink-500" />
-                                    <span className="text-sm font-bold text-gray-700">Budget Period:</span>
+                            <div className="flex flex-wrap items-center gap-3 pt-2">
+                                <div className="flex items-center gap-1.5">
+                                    <Target className="w-3.5 h-3.5 text-pink-500" />
+                                    <span className="text-xs font-bold text-gray-700">Period:</span>
                                 </div>
                                 <select
                                   value={budgetYearFilter}
                                   onChange={(e) => setBudgetYearFilter(e.target.value)}
-                                  className="border-2 border-pink-200 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-pink-500 outline-none transition-all bg-pink-50 text-pink-900 text-sm font-medium"
+                                  className="border-2 border-pink-200 rounded-md px-2 py-1 focus:ring-2 focus:ring-pink-500 outline-none transition-all bg-pink-50 text-pink-900 text-xs font-medium"
                                 >
                                   {budgetAvailableYears.length === 0 && <option value="">Loading...</option>}
                                   {budgetAvailableYears.map((yr, idx) => (
@@ -1515,7 +1509,7 @@
                                 <select
                                   value={budgetMonthFilter}
                                   onChange={(e) => setBudgetMonthFilter(e.target.value)}
-                                  className="border-2 border-pink-200 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-pink-500 outline-none transition-all bg-pink-50 text-pink-900 text-sm font-medium"
+                                  className="border-2 border-pink-200 rounded-md px-2 py-1 focus:ring-2 focus:ring-pink-500 outline-none transition-all bg-pink-50 text-pink-900 text-xs font-medium"
                                 >
                                   {budgetAvailableMonths.length === 0 && <option value="">Loading...</option>}
                                   {budgetAvailableMonths.map((mo, idx) => (
@@ -1523,16 +1517,12 @@
                                   ))}
                                 </select>
 
-                                <div className="w-px h-6 bg-gray-300 mx-2"></div>
+                                <div className="w-px h-4 bg-gray-300 mx-1"></div>
 
-                                <div className="flex items-center gap-2">
-                                    <Filter className="w-4 h-4 text-gray-400" />
-                                    <span className="text-sm font-medium text-gray-600">Filters:</span>
-                                </div>
                                 <select
                                   value={budgetLocFilter}
                                   onChange={(e) => setBudgetLocFilter(e.target.value)}
-                                  className="border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500 outline-none transition-all bg-white text-gray-800 text-sm"
+                                  className="border border-gray-300 rounded-md px-2 py-1 outline-none bg-white text-gray-800 text-xs"
                                 >
                                   <option value="All">All Locations</option>
                                   {budgetLocations.map((loc, idx) => (
@@ -1542,7 +1532,7 @@
                                 <select
                                   value={budgetHeadFilter}
                                   onChange={(e) => setBudgetHeadFilter(e.target.value)}
-                                  className="border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500 outline-none transition-all bg-white text-gray-800 text-sm"
+                                  className="border border-gray-300 rounded-md px-2 py-1 outline-none bg-white text-gray-800 text-xs max-w-[150px] truncate"
                                 >
                                   <option value="All">All Expense Heads</option>
                                   {budgetHeads.map((head, idx) => (
@@ -1552,7 +1542,7 @@
                                 {(budgetLocFilter !== 'All' || budgetHeadFilter !== 'All') && (
                                     <button 
                                         onClick={() => { setBudgetLocFilter('All'); setBudgetHeadFilter('All'); }}
-                                        className="text-sm text-pink-600 hover:text-pink-800 font-medium ml-2 underline underline-offset-2"
+                                        className="text-xs text-pink-600 hover:text-pink-800 font-medium underline underline-offset-2"
                                     >
                                         Clear
                                     </button>
@@ -1561,46 +1551,45 @@
                           </div>
                           
                           {filteredBudgetRecords.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">
-                              <p>In filters ke hisab se koi budget data nahi mila.</p>
+                            <div className="p-6 text-center text-sm text-gray-500">
+                              <p>No budget data found for filters.</p>
                             </div>
                           ) : (
-                            <div className="overflow-x-auto">
-                              <table className="w-full text-left border-collapse min-w-[1000px]">
-                                <thead>
-                                  <tr className="bg-gray-50 border-b-2 border-gray-200 text-gray-600 text-sm">
-                                    <th className="p-4 font-semibold whitespace-nowrap">Saloon Location</th>
-                                    <th className="p-4 font-semibold whitespace-nowrap">Expense Head</th>
-                                    <th className="p-4 font-bold text-right border-l border-gray-200 text-gray-800">Plan (Budget)</th>
-                                    <th className="p-4 font-bold text-right text-gray-800">Actual (Expense)</th>
-                                    <th className="p-4 font-bold text-right text-indigo-700">Variance</th>
-                                    <th className="p-4 font-bold text-right text-amber-600">% Utilized</th>
+                            <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
+                              <table className="w-full text-left border-collapse min-w-[800px] text-sm">
+                                <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
+                                  <tr className="border-b border-gray-200 text-gray-600">
+                                    <th className="px-4 py-2.5 font-semibold whitespace-nowrap">Location</th>
+                                    <th className="px-4 py-2.5 font-semibold whitespace-nowrap">Expense Head</th>
+                                    <th className="px-4 py-2.5 font-bold text-right border-l border-gray-200 text-gray-800">Plan</th>
+                                    <th className="px-4 py-2.5 font-bold text-right text-gray-800">Actual</th>
+                                    <th className="px-4 py-2.5 font-bold text-right text-indigo-700">Variance</th>
+                                    <th className="px-4 py-2.5 font-bold text-right text-amber-600">% Utilized</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {filteredBudgetRecords.map((row, index) => (
-                                    <tr key={`bud-${index}`} className="border-b border-gray-50 hover:bg-pink-50/30 transition-colors">
-                                      <td className="p-4 text-gray-800 font-bold whitespace-nowrap">{row.location}</td>
-                                      <td className="p-4 text-gray-600 font-medium whitespace-nowrap">{row.head}</td>
-                                      <td className="p-4 text-right border-l border-gray-100">{formatCurrency(row.plan)}</td>
-                                      <td className="p-4 text-right font-medium">{formatCurrency(row.actual)}</td>
-                                      <td className={`p-4 text-right font-bold ${row.variance < 0 ? 'text-red-600 bg-red-50/50' : row.variance > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
+                                    <tr key={`bud-${index}`} className="border-b border-gray-100 hover:bg-pink-50/30 transition-colors">
+                                      <td className="px-4 py-1.5 text-gray-800 font-bold whitespace-nowrap">{row.location}</td>
+                                      <td className="px-4 py-1.5 text-gray-600 font-medium whitespace-nowrap truncate max-w-[200px]">{row.head}</td>
+                                      <td className="px-4 py-1.5 text-right border-l border-gray-100">{formatCurrency(row.plan)}</td>
+                                      <td className="px-4 py-1.5 text-right font-medium">{formatCurrency(row.actual)}</td>
+                                      <td className={`px-4 py-1.5 text-right font-bold ${row.variance < 0 ? 'text-red-600 bg-red-50/50' : row.variance > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
                                         {row.variance > 0 ? '+' : ''}{formatCurrency(row.variance)}
                                       </td>
-                                      <td className="p-4 text-right font-bold text-amber-700 bg-amber-50/30">
+                                      <td className="px-4 py-1.5 text-right font-bold text-amber-700 bg-amber-50/30">
                                         {formatUtilized(row.plan, row.actual)}
                                       </td>
                                     </tr>
                                   ))}
-                                  {/* Grand Total Row */}
-                                  <tr className="bg-gray-100 border-t-2 border-gray-300 font-bold text-gray-900">
-                                    <td className="p-4" colSpan="2">GRAND TOTAL</td>
-                                    <td className="p-4 text-right border-l border-gray-300">{formatCurrency(filteredBudgetTotals.plan)}</td>
-                                    <td className="p-4 text-right">{formatCurrency(filteredBudgetTotals.actual)}</td>
-                                    <td className={`p-4 text-right text-lg ${filteredBudgetTotals.variance < 0 ? 'text-red-600' : filteredBudgetTotals.variance > 0 ? 'text-green-600' : 'text-gray-900'}`}>
+                                  <tr className="bg-gray-100 border-t-2 border-gray-300 font-bold text-gray-900 sticky bottom-0">
+                                    <td className="px-4 py-2.5" colSpan="2">GRAND TOTAL</td>
+                                    <td className="px-4 py-2.5 text-right border-l border-gray-300">{formatCurrency(filteredBudgetTotals.plan)}</td>
+                                    <td className="px-4 py-2.5 text-right">{formatCurrency(filteredBudgetTotals.actual)}</td>
+                                    <td className={`px-4 py-2.5 text-right text-base ${filteredBudgetTotals.variance < 0 ? 'text-red-600' : filteredBudgetTotals.variance > 0 ? 'text-green-600' : 'text-gray-900'}`}>
                                       {filteredBudgetTotals.variance > 0 ? '+' : ''}{formatCurrency(filteredBudgetTotals.variance)}
                                     </td>
-                                    <td className="p-4 text-right text-lg text-amber-800">
+                                    <td className="px-4 py-2.5 text-right text-base text-amber-800">
                                         {formatUtilized(filteredBudgetTotals.plan, filteredBudgetTotals.actual)}
                                     </td>
                                   </tr>
@@ -1614,67 +1603,62 @@
 
                     {/* View 4: Cash Report */}
                     {activeTab === 'cash' && (
-                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-teal-600 p-6 md:p-8 rounded-2xl shadow-lg border border-teal-700 flex items-center gap-4 text-white relative overflow-hidden mb-6">
-                          <div className="bg-white/10 p-4 md:p-5 rounded-2xl backdrop-blur-sm z-10 shrink-0">
-                            <span className="text-3xl">💼</span>
+                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4">
+                        <div className="bg-teal-600 p-5 rounded-xl shadow-md border border-teal-700 flex items-center gap-4 text-white relative overflow-hidden">
+                          <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm z-10 shrink-0">
+                            <span className="text-2xl">💼</span>
                           </div>
                           <div className="z-10 overflow-hidden">
-                            <p className="text-sm md:text-base font-medium text-teal-100">Final Closing Cash Balance</p>
-                            <p className="text-3xl md:text-5xl font-bold truncate mt-1">
+                            <p className="text-xs md:text-sm font-medium text-teal-100">Final Closing Cash Balance</p>
+                            <p className="text-2xl md:text-3xl font-bold truncate mt-0.5">
                               {formatCurrency(cashReportData.finalClosingBalance)}
                             </p>
                           </div>
                         </div>
 
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                          <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center gap-4">
                             <div>
-                                <h3 className="text-lg font-bold text-gray-800">Daily Cash Flow Report</h3>
-                                <p className="text-xs text-gray-500 mt-1">Calculations strictly start from the 1 Nov 2025 baseline.</p>
+                                <h3 className="text-base font-bold text-gray-800">Daily Cash Flow</h3>
+                                <p className="text-xs text-gray-500">From 1 Nov 2025.</p>
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
-                              <div className="text-sm bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200 text-amber-800 font-medium">
-                                Base (1 Nov): <span>{formatCurrency(cashReportData.baseDateBalance)}</span>
+                            <div className="flex items-center gap-3">
+                              <div className="hidden sm:flex text-xs bg-gray-100 px-2 py-1 rounded border border-gray-200 text-gray-700 font-medium">
+                                Base: {formatCurrency(cashReportData.baseDateBalance)}
                               </div>
-                              <div className="flex items-center gap-2">
-                                <div className="text-sm bg-white px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 font-medium">
-                                  Computed Opening for Filtered Dates: <span className="text-gray-900 font-bold">{formatCurrency(cashReportData.calculatedOpeningBalance)}</span>
-                                </div>
-                                <button 
-                                  onClick={handleExportCashReport}
-                                  className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-sm transition-colors shadow-sm"
-                                >
-                                  <Download className="w-4 h-4" /> Export CSV
-                                </button>
-                              </div>
+                              <button 
+                                onClick={handleExportCashReport}
+                                className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm"
+                              >
+                                <Download className="w-3.5 h-3.5" /> Export
+                              </button>
                             </div>
                           </div>
                           
                           {cashReportData.dailyRecords.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">
-                              <p>Selected dates ke andar koi cash flow nahi mila.</p>
+                            <div className="p-6 text-center text-sm text-gray-500">
+                              <p>No cash flow data for selected dates.</p>
                             </div>
                           ) : (
-                            <div className="overflow-x-auto">
-                              <table className="w-full text-left border-collapse min-w-[600px]">
-                                <thead>
-                                  <tr className="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
-                                    <th className="p-4 font-semibold whitespace-nowrap">Date</th>
-                                    <th className="p-4 font-semibold text-right">Opening Cash</th>
-                                    <th className="p-4 font-semibold text-right text-green-600">Cash In (Sales)</th>
-                                    <th className="p-4 font-semibold text-right text-red-500">Cash Out (Expense)</th>
-                                    <th className="p-4 font-semibold text-right text-teal-700">Closing Cash</th>
+                            <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
+                              <table className="w-full text-left border-collapse min-w-[600px] text-sm">
+                                <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
+                                  <tr className="border-b border-gray-200 text-gray-600">
+                                    <th className="px-4 py-2.5 font-semibold whitespace-nowrap">Date</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right">Opening Cash</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right text-green-600">Cash In (Sales)</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right text-red-500">Cash Out (Exp)</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right text-teal-700">Closing Cash</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {cashReportData.dailyRecords.map((day, index) => (
-                                    <tr key={`day-${index}`} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
-                                      <td className="p-4 text-gray-800 font-medium whitespace-nowrap">{day.displayDate}</td>
-                                      <td className="p-4 text-right text-gray-600">{formatCurrency(day.opening)}</td>
-                                      <td className="p-4 text-right text-green-600 font-medium">+{formatCurrency(day.cashIn)}</td>
-                                      <td className="p-4 text-right text-red-500 font-medium">-{formatCurrency(day.cashOut)}</td>
-                                      <td className="p-4 text-right font-bold text-teal-700 bg-teal-50/30">
+                                    <tr key={`day-${index}`} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                                      <td className="px-4 py-1.5 text-gray-800 font-medium whitespace-nowrap">{day.displayDate}</td>
+                                      <td className="px-4 py-1.5 text-right text-gray-600">{formatCurrency(day.opening)}</td>
+                                      <td className="px-4 py-1.5 text-right text-green-600 font-medium">+{formatCurrency(day.cashIn)}</td>
+                                      <td className="px-4 py-1.5 text-right text-red-500 font-medium">-{formatCurrency(day.cashOut)}</td>
+                                      <td className="px-4 py-1.5 text-right font-bold text-teal-700 bg-teal-50/30">
                                         {formatCurrency(day.closing)}
                                       </td>
                                     </tr>
@@ -1689,90 +1673,89 @@
 
                     {/* View 5: Payment Report (System vs Manager) */}
                     {activeTab === 'payment' && (
-                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-sky-600 p-6 md:p-8 rounded-2xl shadow-lg border border-sky-700 flex items-center gap-4 text-white relative overflow-hidden mb-6">
-                          <div className="bg-white/10 p-4 md:p-5 rounded-2xl backdrop-blur-sm z-10 shrink-0">
-                            <span className="text-3xl md:text-4xl">📝</span>
+                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4">
+                        <div className="bg-sky-600 p-5 rounded-xl shadow-md border border-sky-700 flex items-center gap-4 text-white relative overflow-hidden">
+                          <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm z-10 shrink-0">
+                            <span className="text-2xl">📝</span>
                           </div>
                           <div className="z-10 overflow-hidden">
-                            <p className="text-sm md:text-base font-medium text-sky-100">Variance Analysis Report</p>
-                            <p className="text-2xl md:text-4xl font-bold truncate mt-1">
+                            <p className="text-xs md:text-sm font-medium text-sky-100">Variance Analysis Report</p>
+                            <p className="text-xl md:text-3xl font-bold truncate mt-0.5">
                               System vs Manager Submission
                             </p>
                           </div>
                         </div>
 
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                          <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <div className="flex-shrink-0">
-                                <h3 className="text-lg font-bold text-gray-800">Daily Payment Variance Report</h3>
-                                <p className="text-xs text-gray-500 mt-1">Comparing System automatically calculated data with Manager submitted data per location.</p>
+                                <h3 className="text-base font-bold text-gray-800">Daily Payment Variance</h3>
                             </div>
                             
                             {/* Summary Cards */}
-                            <div className="flex flex-wrap items-center gap-2 flex-1 lg:justify-end pr-0 lg:pr-4">
-                                <div className={`px-3 py-1.5 rounded-lg border text-sm font-medium flex items-center gap-2 ${paymentReportData.totals.cashVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cashVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
-                                    <span className="text-xs uppercase tracking-wider opacity-80">Cash Var:</span>
+                            <div className="flex flex-wrap items-center gap-2 flex-1 lg:justify-end pr-0 lg:pr-2">
+                                <div className={`px-2 py-1 rounded border text-xs font-medium flex items-center gap-1 ${paymentReportData.totals.cashVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cashVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="uppercase tracking-wider opacity-80">Cash Var:</span>
                                     <span>{paymentReportData.totals.cashVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.cashVar)}</span>
                                 </div>
-                                <div className={`px-3 py-1.5 rounded-lg border text-sm font-medium flex items-center gap-2 ${paymentReportData.totals.upiVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.upiVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
-                                    <span className="text-xs uppercase tracking-wider opacity-80">UPI Var:</span>
+                                <div className={`px-2 py-1 rounded border text-xs font-medium flex items-center gap-1 ${paymentReportData.totals.upiVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.upiVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="uppercase tracking-wider opacity-80">UPI Var:</span>
                                     <span>{paymentReportData.totals.upiVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.upiVar)}</span>
                                 </div>
-                                <div className={`px-3 py-1.5 rounded-lg border text-sm font-medium flex items-center gap-2 ${paymentReportData.totals.cardVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cardVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
-                                    <span className="text-xs uppercase tracking-wider opacity-80">Card Var:</span>
+                                <div className={`px-2 py-1 rounded border text-xs font-medium flex items-center gap-1 ${paymentReportData.totals.cardVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cardVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="uppercase tracking-wider opacity-80">Card Var:</span>
                                     <span>{paymentReportData.totals.cardVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.cardVar)}</span>
                                 </div>
                             </div>
 
                             <button 
                               onClick={handleExportPaymentReport}
-                              className="flex items-center justify-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-sm transition-colors shadow-sm flex-shrink-0"
+                              className="flex items-center justify-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm flex-shrink-0"
                             >
-                              <Download className="w-4 h-4" /> Export CSV
+                              <Download className="w-3.5 h-3.5" /> Export
                             </button>
                           </div>
                           
                           {paymentReportData.records.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">
+                            <div className="p-6 text-center text-sm text-gray-500">
                               <p>No valid data found for the selected dates/locations.</p>
                             </div>
                           ) : (
-                            <div className="overflow-x-auto">
-                              <table className="w-full text-left border-collapse min-w-[1400px]">
-                                <thead>
-                                  <tr className="bg-gray-50 border-b-2 border-gray-200 text-gray-600 text-xs uppercase tracking-wider">
-                                    <th className="p-4 font-semibold whitespace-nowrap">Date</th>
-                                    <th className="p-4 font-semibold whitespace-nowrap">Location</th>
-                                    <th className="p-4 font-semibold whitespace-nowrap">Manager</th>
+                            <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
+                              <table className="w-full text-left border-collapse min-w-[1200px] text-xs">
+                                <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
+                                  <tr className="border-b-2 border-gray-200 text-gray-600 uppercase tracking-wider">
+                                    <th className="px-3 py-2.5 font-semibold whitespace-nowrap">Date</th>
+                                    <th className="px-3 py-2.5 font-semibold whitespace-nowrap">Location</th>
+                                    <th className="px-3 py-2.5 font-semibold whitespace-nowrap">Manager</th>
                                     
                                     {/* Cash Headers */}
-                                    <th className="p-4 font-bold text-right border-l border-gray-200 text-gray-800">Sys Cash</th>
-                                    <th className="p-4 font-bold text-right text-gray-800">Mgr Cash</th>
-                                    <th className="p-4 font-bold text-right text-indigo-700">Cash Var</th>
+                                    <th className="px-3 py-2.5 font-bold text-right border-l border-gray-200 text-gray-800">Sys Cash</th>
+                                    <th className="px-3 py-2.5 font-bold text-right text-gray-800">Mgr Cash</th>
+                                    <th className="px-3 py-2.5 font-bold text-right text-indigo-700">Cash Var</th>
                                     
                                     {/* UPI Headers */}
-                                    <th className="p-4 font-bold text-right border-l border-gray-200 text-gray-800">Sys UPI</th>
-                                    <th className="p-4 font-bold text-right text-gray-800">Mgr UPI</th>
-                                    <th className="p-4 font-bold text-right text-indigo-700">UPI Var</th>
+                                    <th className="px-3 py-2.5 font-bold text-right border-l border-gray-200 text-gray-800">Sys UPI</th>
+                                    <th className="px-3 py-2.5 font-bold text-right text-gray-800">Mgr UPI</th>
+                                    <th className="px-3 py-2.5 font-bold text-right text-indigo-700">UPI Var</th>
                                     
                                     {/* Card Headers */}
-                                    <th className="p-4 font-bold text-right border-l border-gray-200 text-gray-800">Sys Card</th>
-                                    <th className="p-4 font-bold text-right text-gray-800">Mgr Card</th>
-                                    <th className="p-4 font-bold text-right text-indigo-700">Card Var</th>
+                                    <th className="px-3 py-2.5 font-bold text-right border-l border-gray-200 text-gray-800">Sys Card</th>
+                                    <th className="px-3 py-2.5 font-bold text-right text-gray-800">Mgr Card</th>
+                                    <th className="px-3 py-2.5 font-bold text-right text-indigo-700">Card Var</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {paymentReportData.records.map((day, index) => (
-                                    <tr key={`pay-${index}`} className="border-b border-gray-50 hover:bg-sky-50/30 transition-colors">
-                                      <td className="p-4 text-gray-800 font-bold whitespace-nowrap">{day.displayDate}</td>
-                                      <td className="p-4 text-gray-600 font-medium whitespace-nowrap">{day.location}</td>
-                                      <td className="p-4 text-gray-500 whitespace-nowrap">{day.mgrManagerName}</td>
+                                    <tr key={`pay-${index}`} className="border-b border-gray-100 hover:bg-sky-50/30 transition-colors">
+                                      <td className="px-3 py-1.5 text-gray-800 font-bold whitespace-nowrap">{day.displayDate}</td>
+                                      <td className="px-3 py-1.5 text-gray-600 font-medium whitespace-nowrap">{day.location}</td>
+                                      <td className="px-3 py-1.5 text-gray-500 whitespace-nowrap truncate max-w-[120px]">{day.mgrManagerName}</td>
                                       
                                       {/* Cash Data */}
-                                      <td className="p-4 text-right border-l border-gray-100">{formatCurrency(day.sysClosingCash)}</td>
-                                      <td className="p-4 text-right font-medium">{formatCurrency(day.mgrClosingCash)}</td>
-                                      <td className={`p-4 text-right font-bold ${day.cashVar < 0 ? 'text-red-600 bg-red-50/50' : day.cashVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
+                                      <td className="px-3 py-1.5 text-right border-l border-gray-100">{formatCurrency(day.sysClosingCash)}</td>
+                                      <td className="px-3 py-1.5 text-right font-medium">{formatCurrency(day.mgrClosingCash)}</td>
+                                      <td className={`px-3 py-1.5 text-right font-bold ${day.cashVar < 0 ? 'text-red-600 bg-red-50/50' : day.cashVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
                                         <button 
                                           onClick={() => setSelectedCashVarDetail(day)}
                                           className={`hover:underline underline-offset-2 ${day.cashVar !== 0 ? 'cursor-pointer' : 'cursor-pointer'}`}
@@ -1783,16 +1766,16 @@
                                       </td>
                                       
                                       {/* UPI Data */}
-                                      <td className="p-4 text-right border-l border-gray-100">{formatCurrency(day.sysUpi)}</td>
-                                      <td className="p-4 text-right font-medium">{formatCurrency(day.mgrUpi)}</td>
-                                      <td className={`p-4 text-right font-bold ${day.upiVar < 0 ? 'text-red-600 bg-red-50/50' : day.upiVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
+                                      <td className="px-3 py-1.5 text-right border-l border-gray-100">{formatCurrency(day.sysUpi)}</td>
+                                      <td className="px-3 py-1.5 text-right font-medium">{formatCurrency(day.mgrUpi)}</td>
+                                      <td className={`px-3 py-1.5 text-right font-bold ${day.upiVar < 0 ? 'text-red-600 bg-red-50/50' : day.upiVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
                                         {day.upiVar > 0 ? '+' : ''}{formatCurrency(day.upiVar)}
                                       </td>
 
                                       {/* Card Data */}
-                                      <td className="p-4 text-right border-l border-gray-100">{formatCurrency(day.sysCard)}</td>
-                                      <td className="p-4 text-right font-medium">{formatCurrency(day.mgrCard)}</td>
-                                      <td className={`p-4 text-right font-bold ${day.cardVar < 0 ? 'text-red-600 bg-red-50/50' : day.cardVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
+                                      <td className="px-3 py-1.5 text-right border-l border-gray-100">{formatCurrency(day.sysCard)}</td>
+                                      <td className="px-3 py-1.5 text-right font-medium">{formatCurrency(day.mgrCard)}</td>
+                                      <td className={`px-3 py-1.5 text-right font-bold ${day.cardVar < 0 ? 'text-red-600 bg-red-50/50' : day.cardVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
                                         {day.cardVar > 0 ? '+' : ''}{formatCurrency(day.cardVar)}
                                       </td>
                                     </tr>
@@ -1807,63 +1790,60 @@
 
                     {/* View 6: Monthly Report */}
                     {activeTab === 'monthly' && (
-                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-violet-600 p-6 md:p-8 rounded-2xl shadow-lg border border-violet-700 flex items-center gap-4 text-white relative overflow-hidden mb-6">
-                          <div className="bg-white/10 p-4 md:p-5 rounded-2xl backdrop-blur-sm z-10 shrink-0">
-                            <span className="text-3xl">📅</span>
+                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4">
+                        <div className="bg-violet-600 p-5 rounded-xl shadow-md border border-violet-700 flex items-center gap-4 text-white relative overflow-hidden">
+                          <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm z-10 shrink-0">
+                            <span className="text-2xl">📅</span>
                           </div>
                           <div className="z-10 overflow-hidden">
-                            <p className="text-sm md:text-base font-medium text-violet-200">Total Months Analyzed</p>
-                            <p className="text-3xl md:text-5xl font-bold truncate mt-1">
+                            <p className="text-xs md:text-sm font-medium text-violet-200">Total Months Analyzed</p>
+                            <p className="text-2xl md:text-3xl font-bold truncate mt-0.5">
                               {monthlyReportData.length} Months
                             </p>
                           </div>
                         </div>
 
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-800">Monthly Aggregated Report</h3>
-                                <p className="text-xs text-gray-500 mt-1">Month wise summary (Date filter is ignored for this report).</p>
-                            </div>
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                          <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center gap-4">
+                            <h3 className="text-base font-bold text-gray-800">Monthly Aggregated Report</h3>
                             <button 
                               onClick={handleExportMonthlyReport}
-                              className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors shadow-sm"
+                              className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm"
                             >
-                              <Download className="w-4 h-4" /> Export CSV
+                              <Download className="w-3.5 h-3.5" /> Export
                             </button>
                           </div>
                           
                           {monthlyReportData.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">
+                            <div className="p-6 text-center text-sm text-gray-500">
                               <p>Is location ke liye koi data nahi mila.</p>
                             </div>
                           ) : (
-                            <div className="overflow-x-auto">
-                              <table className="w-full text-left border-collapse min-w-[800px]">
-                                <thead>
-                                  <tr className="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
-                                    <th className="p-4 font-semibold whitespace-nowrap">Month</th>
-                                    <th className="p-4 font-semibold text-right">Cash</th>
-                                    <th className="p-4 font-semibold text-right">Card</th>
-                                    <th className="p-4 font-semibold text-right">Paytm</th>
-                                    <th className="p-4 font-semibold text-right">UPI</th>
-                                    <th className="p-4 font-semibold text-right text-green-700">Total Sales</th>
-                                    <th className="p-4 font-semibold text-right text-red-600">Total Expense</th>
+                            <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
+                              <table className="w-full text-left border-collapse min-w-[700px] text-sm">
+                                <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
+                                  <tr className="border-b border-gray-200 text-gray-600">
+                                    <th className="px-4 py-2.5 font-semibold whitespace-nowrap">Month</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right">Cash</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right">Card</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right">Paytm</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right">UPI</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right text-green-700">Total Sales</th>
+                                    <th className="px-4 py-2.5 font-semibold text-right text-red-600">Total Exp</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {monthlyReportData.map((month, index) => (
-                                    <tr key={`month-${index}`} className="border-b border-gray-50 hover:bg-violet-50/30 transition-colors">
-                                      <td className="p-4 text-gray-800 font-bold whitespace-nowrap">{month.displayMonth}</td>
-                                      <td className="p-4 text-right text-gray-600">{formatCurrency(month.cash)}</td>
-                                      <td className="p-4 text-right text-gray-600">{formatCurrency(month.card)}</td>
-                                      <td className="p-4 text-right text-gray-600">{formatCurrency(month.paytm)}</td>
-                                      <td className="p-4 text-right text-gray-600">{formatCurrency(month.upi)}</td>
-                                      <td className="p-4 text-right font-bold text-green-700 bg-green-50/30">
+                                    <tr key={`month-${index}`} className="border-b border-gray-100 hover:bg-violet-50/30 transition-colors">
+                                      <td className="px-4 py-2 text-gray-800 font-bold whitespace-nowrap">{month.displayMonth}</td>
+                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(month.cash)}</td>
+                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(month.card)}</td>
+                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(month.paytm)}</td>
+                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(month.upi)}</td>
+                                      <td className="px-4 py-2 text-right font-bold text-green-700 bg-green-50/30">
                                         {formatCurrency(month.totalSales)}
                                       </td>
-                                      <td className="p-4 text-right font-bold text-red-600 bg-red-50/30">
+                                      <td className="px-4 py-2 text-right font-bold text-red-600 bg-red-50/30">
                                         {formatCurrency(month.totalExpense)}
                                       </td>
                                     </tr>
@@ -1878,107 +1858,57 @@
 
                     {/* View 7: Live Cash */}
                     {activeTab === 'live' && (
-                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-emerald-600 p-6 md:p-8 rounded-2xl shadow-lg border border-emerald-700 flex items-center gap-4 text-white relative overflow-hidden mb-6">
-                          <div className="bg-white/10 p-4 md:p-5 rounded-2xl backdrop-blur-sm z-10 shrink-0">
-                            <span className="text-3xl">🟢</span>
+                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4">
+                        <div className="bg-emerald-600 p-5 rounded-xl shadow-md border border-emerald-700 flex items-center gap-4 text-white relative overflow-hidden">
+                          <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm z-10 shrink-0">
+                            <span className="text-2xl">🟢</span>
                           </div>
                           <div className="z-10 overflow-hidden">
-                            <p className="text-sm md:text-base font-medium text-emerald-100">Overall Live Cash (All Selected Locations)</p>
-                            <p className="text-3xl md:text-5xl font-bold truncate mt-1">
+                            <p className="text-xs md:text-sm font-medium text-emerald-100">Overall Live Cash (All Selected Locations)</p>
+                            <p className="text-2xl md:text-3xl font-bold truncate mt-0.5">
                               {formatCurrency(liveCashData.overallBalance)}
                             </p>
                           </div>
                         </div>
 
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                          <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center gap-4">
                             <div>
-                                <h3 className="text-lg font-bold text-gray-800">Location-wise Live Cash Summary</h3>
-                                <p className="text-xs text-gray-500 mt-1">Calculated from 1 Nov 2025 to now. <strong className="text-gray-700">Ignores specific Date & Location filters.</strong> Shows ALL locations permanently.</p>
+                                <h3 className="text-base font-bold text-gray-800">Location-wise Live Cash</h3>
                             </div>
                             <button
                               onClick={handleExportLiveCash}
-                              className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors shadow-sm"
+                              className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm"
                             >
-                              <Download className="w-4 h-4" /> Export CSV
+                              <Download className="w-3.5 h-3.5" /> Export
                             </button>
                           </div>
 
-                          <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
-                              <thead>
-                                <tr className="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
-                                  <th className="p-4 font-semibold">Saloon Location</th>
-                                  <th className="p-4 font-semibold text-right text-emerald-800 text-base">Live Cash Balance</th>
+                          <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
+                            <table className="w-full text-left border-collapse text-sm">
+                              <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
+                                <tr className="border-b border-gray-200 text-gray-600">
+                                  <th className="px-5 py-2.5 font-semibold">Saloon Location</th>
+                                  <th className="px-5 py-2.5 font-semibold text-right text-emerald-800">Live Cash Balance</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {liveCashData.breakdown.map((loc, index) => (
-                                  <tr key={`live-${index}`} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
-                                    <td className="p-4 text-gray-800 font-bold">{loc.location}</td>
-                                    <td className="p-4 text-right font-bold text-emerald-700 bg-emerald-50/30">
+                                  <tr key={`live-${index}`} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                                    <td className="px-5 py-2 text-gray-800 font-medium">{loc.location}</td>
+                                    <td className="px-5 py-2 text-right font-bold text-emerald-700 bg-emerald-50/30">
                                       {formatCurrency(loc.liveBalance)}
                                     </td>
                                   </tr>
                                 ))}
                                 {/* Grand Total Row */}
-                                <tr className="bg-gray-100 border-t-2 border-gray-300 font-bold text-gray-900">
-                                  <td className="p-4">ALL LOCATIONS (GRAND TOTAL)</td>
-                                  <td className="p-4 text-right text-emerald-800 text-lg">{formatCurrency(liveCashData.overallBalance)}</td>
+                                <tr className="bg-gray-100 border-t-2 border-gray-300 font-bold text-gray-900 sticky bottom-0">
+                                  <td className="px-5 py-3">ALL LOCATIONS (GRAND TOTAL)</td>
+                                  <td className="px-5 py-3 text-right text-emerald-800 text-base">{formatCurrency(liveCashData.overallBalance)}</td>
                                 </tr>
                               </tbody>
                             </table>
                           </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* View 8: Base Balances */}
-                    {activeTab === 'opening' && (
-                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="bg-amber-600 p-6 md:p-8 rounded-2xl shadow-lg border border-amber-700 flex items-center gap-4 text-white relative overflow-hidden mb-6">
-                          <div className="bg-white/10 p-4 md:p-5 rounded-2xl backdrop-blur-sm z-10 shrink-0">
-                            <span className="text-3xl">🏦</span>
-                          </div>
-                          <div className="z-10 overflow-hidden">
-                            <p className="text-sm md:text-base font-medium text-amber-100">Total Opening Baseline (All Locations)</p>
-                            <p className="text-3xl md:text-5xl font-bold truncate mt-1">
-                              {formatCurrency(Object.values(baseBalances).reduce((a, b) => a + (Number(b) || 0), 0))}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50">
-                            <h3 className="text-lg font-bold text-gray-800">Fixed Opening Cash Balances (As of 1 Nov 2025)</h3>
-                            <p className="text-sm text-gray-500 mt-1">Fetched directly from the "Cash Flow" sheet tab.</p>
-                          </div>
-                          
-                          {Object.keys(baseBalances).length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">
-                              <p>Cash Flow sheet mein koi base balance nahi mila.</p>
-                            </div>
-                          ) : (
-                            <div className="overflow-x-auto">
-                              <table className="w-full text-left border-collapse">
-                                <thead>
-                                  <tr className="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
-                                    <th className="p-4 font-semibold">Saloon Location / Username</th>
-                                    <th className="p-4 font-semibold text-right">Opening Balance (1 Nov)</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {Object.entries(baseBalances).map(([loc, amt], index) => (
-                                    <tr key={`bal-${index}`} className="border-b border-gray-50 hover:bg-amber-50/30 transition-colors">
-                                      <td className="p-4 text-gray-800 font-medium">{loc}</td>
-                                      <td className="p-4 text-right text-gray-800 font-semibold">{formatCurrency(amt)}</td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          )}
                         </div>
                       </div>
                     )}
@@ -1988,22 +1918,22 @@
 
               {/* Expense Drill-Down Modal */}
               {selectedExpenseForDetail && (
-                <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-                  <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b border-gray-100 bg-gray-50 gap-4">
+                <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-sm">
+                  <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-5 py-4 border-b border-gray-100 bg-gray-50 gap-3">
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900">{selectedExpenseForDetail.head}</h3>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Total Amount: <span className="font-semibold text-indigo-600">{formatCurrency(modalFilteredTotal)}</span> 
-                          <span className="mx-2">•</span> 
+                        <h3 className="text-lg font-bold text-gray-900">{selectedExpenseForDetail.head}</h3>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          Total: <span className="font-bold text-indigo-600">{formatCurrency(modalFilteredTotal)}</span> 
+                          <span className="mx-1.5">•</span> 
                           {modalFilteredDetails.length} Transaction(s)
                         </p>
                       </div>
-                      <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                      <div className="flex items-center gap-2 w-full sm:w-auto">
                         <select
                           value={modalLocationFilter}
                           onChange={(e) => setModalLocationFilter(e.target.value)}
-                          className="border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500 outline-none transition-all bg-white text-gray-800 text-sm flex-1 sm:flex-none"
+                          className="border border-gray-300 rounded-lg px-2 py-1.5 focus:ring-2 focus:ring-indigo-500 outline-none transition-all bg-white text-gray-800 text-xs flex-1 sm:flex-none"
                         >
                           <option value="All">All Locations</option>
                           {modalLocations.map((loc, idx) => (
@@ -2012,62 +1942,54 @@
                         </select>
                         <button 
                           onClick={handleExportModalDetails}
-                          className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-sm transition-colors shadow-sm"
+                          className="flex items-center justify-center bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 p-1.5 rounded-lg transition-colors shadow-sm"
+                          title="Export CSV"
                         >
-                          <Download className="w-4 h-4" /> Export CSV
+                          <Download className="w-4 h-4" />
                         </button>
                         <button 
                           onClick={() => { setSelectedExpenseForDetail(null); setModalLocationFilter('All'); }}
-                          className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors shrink-0"
+                          className="p-1 text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors shrink-0"
                         >
-                          <X className="w-6 h-6" />
+                          <X className="w-5 h-5" />
                         </button>
                       </div>
                     </div>
 
-                    <div className="overflow-y-auto p-0">
-                      <table className="w-full text-left border-collapse">
+                    <div className="overflow-y-auto p-0 scrollbar-hide">
+                      <table className="w-full text-left border-collapse text-xs">
                         <thead className="sticky top-0 bg-white shadow-sm ring-1 ring-black/5 z-10">
-                          <tr className="text-gray-600 text-sm bg-gray-50/90 backdrop-blur-md">
-                            <th className="p-4 font-semibold whitespace-nowrap border-b border-gray-200">Date</th>
-                            <th className="p-4 font-semibold border-b border-gray-200">Remarks / SubHead</th>
-                            <th className="p-4 font-semibold border-b border-gray-200">Saloon Location</th>
-                            <th className="p-4 font-semibold text-right whitespace-nowrap border-b border-gray-200">Exp Amt</th>
+                          <tr className="text-gray-600 bg-gray-50/90 backdrop-blur-md">
+                            <th className="px-4 py-2 font-semibold whitespace-nowrap border-b border-gray-200">Date</th>
+                            <th className="px-4 py-2 font-semibold border-b border-gray-200">Remarks / SubHead</th>
+                            <th className="px-4 py-2 font-semibold border-b border-gray-200">Location</th>
+                            <th className="px-4 py-2 font-semibold text-right whitespace-nowrap border-b border-gray-200">Exp Amt</th>
                             {selectedExpenseForDetail.head?.trim() === 'Incentive Expenses' && (
-                                <th className="p-4 font-semibold border-b border-gray-200">Sold By</th>
+                                <th className="px-4 py-2 font-semibold border-b border-gray-200">Sold By</th>
                             )}
                           </tr>
                         </thead>
                         <tbody>
                           {modalFilteredDetails.map((item, idx) => (
                             <tr key={`mod-${idx}`} className="border-b border-gray-50 hover:bg-blue-50/40 transition-colors">
-                              <td className="p-4 text-gray-600 text-sm whitespace-nowrap">{item.displayDate || 'Unknown Date'}</td>
-                              <td className="p-4 text-gray-800 text-sm">{item.remarks || <span className="text-gray-400 italic">No remarks</span>}</td>
-                              <td className="p-4 text-gray-800 text-sm whitespace-nowrap">{item.location || 'Unknown'}</td>
-                              <td className="p-4 text-right text-gray-900 font-medium whitespace-nowrap">
+                              <td className="px-4 py-2 text-gray-600 whitespace-nowrap">{item.displayDate || 'Unknown Date'}</td>
+                              <td className="px-4 py-2 text-gray-800">{item.remarks || <span className="text-gray-400 italic">No remarks</span>}</td>
+                              <td className="px-4 py-2 text-gray-800 whitespace-nowrap truncate max-w-[120px]">{item.location || 'Unknown'}</td>
+                              <td className="px-4 py-2 text-right text-gray-900 font-medium whitespace-nowrap">
                                 {formatCurrency(item.expenseAmount)}
                               </td>
                               {selectedExpenseForDetail.head?.trim() === 'Incentive Expenses' && (
-                                <td className="p-4 text-gray-800 text-sm whitespace-nowrap">{item.soldBy || '-'}</td>
+                                <td className="px-4 py-2 text-gray-800 whitespace-nowrap">{item.soldBy || '-'}</td>
                               )}
                             </tr>
                           ))}
                           {modalFilteredDetails.length === 0 && (
                             <tr>
-                              <td colSpan="5" className="p-8 text-center text-gray-500">No transactions found for this location.</td>
+                              <td colSpan="5" className="p-6 text-center text-gray-500">No transactions found for this location.</td>
                             </tr>
                           )}
                         </tbody>
                       </table>
-                    </div>
-                    
-                    <div className="p-4 border-t border-gray-100 bg-gray-50 text-right">
-                      <button 
-                        onClick={() => { setSelectedExpenseForDetail(null); setModalLocationFilter('All'); }}
-                        className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors"
-                      >
-                        Close View
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -2075,42 +1997,42 @@
 
               {/* Cash Variance Drill-Down Modal */}
               {selectedCashVarDetail && (
-                <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
-                  <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
-                    <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-gray-50">
+                <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-3 backdrop-blur-sm">
+                  <div className="bg-white rounded-xl shadow-2xl w-full max-w-[400px] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div className="flex justify-between items-center px-4 py-3 border-b border-gray-100 bg-gray-50">
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900">Manager Cash Details</h3>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <h3 className="text-base font-bold text-gray-900">Manager Cash Details</h3>
+                        <p className="text-xs text-gray-500">
                           {selectedCashVarDetail.location} • {selectedCashVarDetail.displayDate}
                         </p>
                       </div>
                       <button
                         onClick={() => setSelectedCashVarDetail(null)}
-                        className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors"
+                        className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors"
                       >
-                        <X className="w-6 h-6" />
+                        <X className="w-5 h-5" />
                       </button>
                     </div>
 
-                    <div className="overflow-y-auto p-6 space-y-6">
+                    <div className="p-4 space-y-4">
                       {/* Highlighted Total Cash */}
-                      <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg text-center relative overflow-hidden">
+                      <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl p-4 text-white shadow-md text-center relative overflow-hidden">
                           <div className="relative z-10">
-                              <p className="text-emerald-100 font-medium mb-1">Total Cash in Locker (Submitted)</p>
-                              <p className="text-4xl font-bold tracking-tight">{formatCurrency(selectedCashVarDetail.mgrClosingCash)}</p>
+                              <p className="text-emerald-100 text-xs font-medium mb-0.5">Total Cash in Locker (Submitted)</p>
+                              <p className="text-2xl font-bold tracking-tight">{formatCurrency(selectedCashVarDetail.mgrClosingCash)}</p>
                           </div>
-                          <IndianRupee className="absolute -right-4 -bottom-4 w-24 h-24 text-white opacity-20 pointer-events-none" />
+                          <IndianRupee className="absolute -right-2 -bottom-2 w-16 h-16 text-white opacity-20 pointer-events-none" />
                       </div>
 
                       {/* System vs Manager Summary */}
-                      <div className="grid grid-cols-2 gap-4">
-                          <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center">
-                              <p className="text-xs text-gray-500 font-medium uppercase tracking-wider mb-1">System Computed</p>
-                              <p className="text-lg font-bold text-gray-800">{formatCurrency(selectedCashVarDetail.sysClosingCash)}</p>
+                      <div className="grid grid-cols-2 gap-3">
+                          <div className="bg-gray-50 rounded-lg p-2.5 border border-gray-100 text-center">
+                              <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">System Comp.</p>
+                              <p className="text-base font-bold text-gray-800">{formatCurrency(selectedCashVarDetail.sysClosingCash)}</p>
                           </div>
-                          <div className={`rounded-xl p-4 border text-center ${selectedCashVarDetail.cashVar < 0 ? 'bg-red-50 border-red-100' : selectedCashVarDetail.cashVar > 0 ? 'bg-green-50 border-green-100' : 'bg-gray-50 border-gray-100'}`}>
-                              <p className={`text-xs font-medium uppercase tracking-wider mb-1 ${selectedCashVarDetail.cashVar < 0 ? 'text-red-500' : selectedCashVarDetail.cashVar > 0 ? 'text-green-600' : 'text-gray-500'}`}>Variance</p>
-                              <p className={`text-lg font-bold ${selectedCashVarDetail.cashVar < 0 ? 'text-red-700' : selectedCashVarDetail.cashVar > 0 ? 'text-green-700' : 'text-gray-800'}`}>
+                          <div className={`rounded-lg p-2.5 border text-center ${selectedCashVarDetail.cashVar < 0 ? 'bg-red-50 border-red-100' : selectedCashVarDetail.cashVar > 0 ? 'bg-green-50 border-green-100' : 'bg-gray-50 border-gray-100'}`}>
+                              <p className={`text-[10px] font-bold uppercase tracking-wider mb-0.5 ${selectedCashVarDetail.cashVar < 0 ? 'text-red-500' : selectedCashVarDetail.cashVar > 0 ? 'text-green-600' : 'text-gray-500'}`}>Variance</p>
+                              <p className={`text-base font-bold ${selectedCashVarDetail.cashVar < 0 ? 'text-red-700' : selectedCashVarDetail.cashVar > 0 ? 'text-green-700' : 'text-gray-800'}`}>
                                   {selectedCashVarDetail.cashVar > 0 ? '+' : ''}{formatCurrency(selectedCashVarDetail.cashVar)}
                               </p>
                           </div>
@@ -2118,66 +2040,57 @@
 
                       {/* Denomination Breakdown */}
                       <div>
-                          <h4 className="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wider">Denomination Breakdown</h4>
-                          <div className="border border-gray-200 rounded-xl overflow-hidden">
-                              <table className="w-full text-left text-sm">
+                          <h4 className="text-[11px] font-bold text-gray-500 mb-2 uppercase tracking-wider text-center">Denomination Breakdown</h4>
+                          <div className="border border-gray-200 rounded-lg overflow-hidden">
+                              <table className="w-full text-left text-xs">
                                   <thead className="bg-gray-50 border-b border-gray-200 text-gray-500">
                                       <tr>
-                                          <th className="py-2 px-4 font-semibold">Notes/Coins</th>
-                                          <th className="py-2 px-4 font-semibold text-center">Count</th>
-                                          <th className="py-2 px-4 font-semibold text-right">Amount</th>
+                                          <th className="py-1.5 px-3 font-semibold">Notes/Coins</th>
+                                          <th className="py-1.5 px-3 font-semibold text-center">Count</th>
+                                          <th className="py-1.5 px-3 font-semibold text-right">Amount</th>
                                       </tr>
                                   </thead>
                                   <tbody className="divide-y divide-gray-100">
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-purple-100 border border-purple-300 rounded inline-block"></span> ₹500</td>
-                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n500 || 0}</td>
-                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n500 || 0) * 500)}</td>
+                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-purple-100 border border-purple-300 rounded-sm inline-block"></span> ₹500</td>
+                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n500 || 0}</td>
+                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n500 || 0) * 500)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-orange-100 border border-orange-300 rounded inline-block"></span> ₹200</td>
-                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n200 || 0}</td>
-                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n200 || 0) * 200)}</td>
+                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-orange-100 border border-orange-300 rounded-sm inline-block"></span> ₹200</td>
+                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n200 || 0}</td>
+                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n200 || 0) * 200)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-blue-100 border border-blue-300 rounded inline-block"></span> ₹100</td>
-                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n100 || 0}</td>
-                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n100 || 0) * 100)}</td>
+                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-blue-100 border border-blue-300 rounded-sm inline-block"></span> ₹100</td>
+                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n100 || 0}</td>
+                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n100 || 0) * 100)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-cyan-100 border border-cyan-300 rounded inline-block"></span> ₹50</td>
-                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n50 || 0}</td>
-                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n50 || 0) * 50)}</td>
+                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-cyan-100 border border-cyan-300 rounded-sm inline-block"></span> ₹50</td>
+                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n50 || 0}</td>
+                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n50 || 0) * 50)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-red-100 border border-red-300 rounded inline-block"></span> ₹20</td>
-                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n20 || 0}</td>
-                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n20 || 0) * 20)}</td>
+                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-red-100 border border-red-300 rounded-sm inline-block"></span> ₹20</td>
+                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n20 || 0}</td>
+                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n20 || 0) * 20)}</td>
                                       </tr>
                                       <tr className="hover:bg-gray-50">
-                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-amber-100 border border-amber-300 rounded inline-block"></span> ₹10</td>
-                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n10 || 0}</td>
-                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n10 || 0) * 10)}</td>
+                                          <td className="py-1 px-3 font-medium text-gray-700 flex items-center gap-2"><span className="w-4 h-3 bg-amber-100 border border-amber-300 rounded-sm inline-block"></span> ₹10</td>
+                                          <td className="py-1 px-3 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n10 || 0}</td>
+                                          <td className="py-1 px-3 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n10 || 0) * 10)}</td>
                                       </tr>
                                       <tr className="bg-gray-50">
-                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2">🪙 Loose</td>
-                                          <td className="py-2 px-4 text-center text-gray-400">-</td>
-                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency(selectedCashVarDetail.mgrNotes?.loose || 0)}</td>
+                                          <td className="py-1.5 px-3 font-medium text-gray-700 flex items-center gap-2">🪙 Loose</td>
+                                          <td className="py-1.5 px-3 text-center text-gray-400">-</td>
+                                          <td className="py-1.5 px-3 text-right font-medium">{formatCurrency(selectedCashVarDetail.mgrNotes?.loose || 0)}</td>
                                       </tr>
                                   </tbody>
                               </table>
                           </div>
-                          <p className="text-xs text-gray-400 mt-2 text-center">Submitted by {selectedCashVarDetail.mgrManagerName}</p>
+                          <p className="text-[10px] text-gray-400 mt-1.5 text-center">Submitted by {selectedCashVarDetail.mgrManagerName}</p>
                       </div>
-                    </div>
-                    
-                    <div className="p-4 border-t border-gray-100 bg-gray-50 text-center">
-                      <button 
-                        onClick={() => setSelectedCashVarDetail(null)}
-                        className="px-8 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-xl transition-colors w-full"
-                      >
-                        Close Breakdown
-                      </button>
                     </div>
                   </div>
                 </div>
