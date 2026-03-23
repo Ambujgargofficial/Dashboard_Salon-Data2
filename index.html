@@ -54,6 +54,7 @@
         const ClipboardList = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>;
         const MapPin = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>;
         const ChevronDown = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m6 9 6 6 6-6"/></svg>;
+        const ShoppingCart = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>;
         // -----------------------------------------------------------------------------
 
         // Anti-Crash Safety Net (Prevents White Screens)
@@ -119,16 +120,16 @@
           const [data, setData] = useState([]);
           const [baseBalances, setBaseBalances] = useState({}); 
           const [managerData, setManagerData] = useState({}); 
+          const [purchaseData, setPurchaseData] = useState([]); 
           
           // BUDGET STATE
           const [budgetData, setBudgetData] = useState({ records: [], availablePeriods: [] }); 
-          const [budgetViewMode, setBudgetViewMode] = useState('period'); // 'period' or 'location'
+          const [budgetViewMode, setBudgetViewMode] = useState('period'); 
           const [budgetYearFilter, setBudgetYearFilter] = useState('');
           const [budgetMonthFilter, setBudgetMonthFilter] = useState('');
           const [budgetLocFilter, setBudgetLocFilter] = useState('All');
           const [budgetHeadFilter, setBudgetHeadFilter] = useState('All');
           
-          // NEW STATES FOR BUDGET LOCATION VIEW (Session & Multi-Month)
           const [isSessionView, setIsSessionView] = useState(false);
           const [selectedBudgetMonths, setSelectedBudgetMonths] = useState([]);
           const [showMonthDropdown, setShowMonthDropdown] = useState(false);
@@ -138,7 +139,6 @@
           const [loading, setLoading] = useState(true);
           const [error, setError] = useState(null);
           
-          // Helper function to get today's date
           const getTodayString = () => {
             const today = new Date();
             const yyyy = today.getFullYear();
@@ -158,9 +158,9 @@
           const [selectedExpenseForDetail, setSelectedExpenseForDetail] = useState(null);
           const [modalLocationFilter, setModalLocationFilter] = useState('All');
 
-          // New State for Manager Cash Verification Modal
           const [selectedCashVarDetail, setSelectedCashVarDetail] = useState(null);
 
+          // SHEET IDs
           const SHEET_ID = '1h2cUl1WB6E9ErvXuaFGkBgiaDZ6CqwC7NArnYHrhmGA';
           const DATA_SHEET = 'Data';
           const CASH_FLOW_SHEET = 'Cash Flow';
@@ -168,6 +168,9 @@
           const BUDGET_SHEET_ID = '1FtOANfxm8NUasFyfnnBPCPJKZeOrXhlEjxKJT3AeYPE';
           const BUDGET_SHEET_NAME = 'Budget Sheet By Ambuj for New Query';
           const BUDGET_INDEX_SHEET_NAME = 'Budget Index By Ambuj';
+
+          const PURCHASE_SHEET_ID = '1W1CoSe8WuWRKG8W23Ib_vgCZzb1RICuD0WkjM_Pv-gw';
+          const PURCHASE_SHEET_NAME = 'Form Responses 1';
 
           const MANAGER_SHEETS = {
               "Aligarh": "10rVHVBiKKmG3vV-WwhMuOaeXyN2phIhHnwacHqJwAlI",
@@ -202,15 +205,16 @@
               const cacheBuster = new Date().getTime();
               const DATA_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${DATA_SHEET}&t=${cacheBuster}`;
               const CASH_FLOW_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${CASH_FLOW_SHEET}&t=${cacheBuster}`;
-              
               const BUDGET_URL = `https://docs.google.com/spreadsheets/d/${BUDGET_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(BUDGET_SHEET_NAME)}&t=${cacheBuster}`;
               const BUDGET_INDEX_URL = `https://docs.google.com/spreadsheets/d/${BUDGET_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(BUDGET_INDEX_SHEET_NAME)}&t=${cacheBuster}`;
+              const PURCHASE_URL = `https://docs.google.com/spreadsheets/d/${PURCHASE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(PURCHASE_SHEET_NAME)}&t=${cacheBuster}`;
               
-              const [dataResponse, cashFlowResponse, budgetResponse, budgetIndexResponse] = await Promise.all([
+              const [dataResponse, cashFlowResponse, budgetResponse, budgetIndexResponse, purchaseResponse] = await Promise.all([
                   fetchWithTimeout(DATA_URL, { timeout: 15000 }),
                   fetchWithTimeout(CASH_FLOW_URL, { timeout: 15000 }),
                   fetchWithTimeout(BUDGET_URL, { timeout: 15000 }).catch((e) => { console.log(`Budget Sheet Error: ${e.message}`); return null; }),
-                  fetchWithTimeout(BUDGET_INDEX_URL, { timeout: 15000 }).catch((e) => { console.log(`Budget Index Error: ${e.message}`); return null; })
+                  fetchWithTimeout(BUDGET_INDEX_URL, { timeout: 15000 }).catch((e) => { console.log(`Budget Index Error: ${e.message}`); return null; }),
+                  fetchWithTimeout(PURCHASE_URL, { timeout: 15000 }).catch((e) => { console.log(`Purchase Sheet Error: ${e.message}`); return null; })
               ]);
 
               const dataText = await dataResponse.text();
@@ -222,6 +226,9 @@
               if (!dataJson?.table?.rows) {
                 throw new Error("Main 'Data' sheet is empty or improperly formatted.");
               }
+
+              // Set to keep track of ALL unique locations across all sheets
+              const extractedLocations = new Set();
 
               // ==========================================
               // 1. Ultra-Safe Parse for 'Cash Flow' Sheet
@@ -264,7 +271,10 @@
                               balAmount = parseFloat(cleanStr) || 0;
                           }
                       }
-                      if (locName) parsedBalances[locName] = balAmount;
+                      if (locName) {
+                          parsedBalances[locName] = balAmount;
+                          extractedLocations.add(locName);
+                      }
                   }
               }
               setBaseBalances(parsedBalances);
@@ -356,7 +366,6 @@
               const periodsList = [];
               let maxReqCol = 3; 
 
-              // Function to convert "C" to 2, "AA" to 26, etc.
               const colToIndex = (colStr) => {
                   let idx = 0;
                   for (let i = 0; i < colStr.length; i++) {
@@ -428,7 +437,6 @@
                           let loc = String(row[0] || '').trim();
                           let head = String(row[1] || '').trim();
 
-                          // Skip header rows dynamically
                           if (!loc || !head || loc.toLowerCase() === 'salon location' || loc.toLowerCase() === 'saloon location' || head.toLowerCase() === 'expense heads') {
                               return;
                           }
@@ -493,8 +501,7 @@
               const idxUserEmp = getIdx(['user emp', 'user name', 'employee', 'emp name']);
 
               const parsedData = [];
-              const extractedLocations = new Set(Object.keys(parsedBalances)); 
-
+              
               for (let i = startIndex; i < dataJson.table.rows.length; i++) {
                   const row = dataJson.table.rows[i];
                   if (!row || !row.c) continue;
@@ -569,6 +576,149 @@
                   });
               }
 
+              // ==========================================
+              // 5. Parse New "Purchase Report" Sheet
+              // ==========================================
+              const parsedPurchases = [];
+              if (purchaseResponse && purchaseResponse.ok) {
+                  try {
+                      const pText = await purchaseResponse.text();
+                      const pJson = extractJson(pText, 'Purchase Sheet');
+                      
+                      let pHeaders = pJson.table.cols?.map(c => c?.label?.trim().toLowerCase() || '') || [];
+                      let pStart = 0;
+                      if (pHeaders.every(h => h === '')) {
+                          if (pJson.table.rows[0]?.c) {
+                              pHeaders = pJson.table.rows[0].c.map(c => String(c?.v || c?.f || '').trim().toLowerCase());
+                              pStart = 1;
+                          }
+                      }
+                      
+                      const getPIdx = (keywords) => {
+                          let idx = pHeaders.findIndex(h => keywords.includes(h));
+                          if (idx !== -1) return idx;
+                          return pHeaders.findIndex(h => keywords.some(kw => h.includes(kw)));
+                      };
+
+                      // Fallbacks if headers are weird: B=1, C=2, D=3, E=4, F=5, H=7
+                      let idxPLoc = getPIdx(['salon location', 'saloon location', 'location']); if (idxPLoc === -1) idxPLoc = 1;
+                      let idxPDate = getPIdx(['invoice date', 'date']); if (idxPDate === -1) idxPDate = 2;
+                      let idxPVendor = getPIdx(['vendor name', 'vendor']); if (idxPVendor === -1) idxPVendor = 3;
+                      let idxPInvNo = getPIdx(['invoice number', 'invoice']); if (idxPInvNo === -1) idxPInvNo = 4;
+                      let idxPAmt = getPIdx(['invoice amount', 'amount']); if (idxPAmt === -1) idxPAmt = 5;
+                      let idxPCat = getPIdx(['category']); if (idxPCat === -1) idxPCat = 7;
+
+                      for (let i = pStart; i < pJson.table.rows.length; i++) {
+                          const row = pJson.table.rows[i];
+                          if (!row || !row.c) continue;
+
+                          const cellCat = row.c[idxPCat];
+                          const catVal = cellCat ? String(cellCat.v || cellCat.f || '').trim().toUpperCase() : '';
+                          if (!catVal.includes('PURCHASE')) continue;
+
+                          const getNum = (index) => {
+                              if (index === -1 || !row.c[index]) return 0;
+                              const cell = row.c[index];
+                              if (cell.v !== null && cell.v !== undefined) {
+                                  if (typeof cell.v === 'number') return cell.v;
+                                  return parseFloat(String(cell.v).replace(/,/g, '').trim()) || 0;
+                              }
+                              if (cell.f) return parseFloat(String(cell.f).replace(/,/g, '').trim()) || 0;
+                              return 0;
+                          };
+
+                          let loc = 'Unknown';
+                          if (idxPLoc !== -1 && row.c[idxPLoc]) {
+                              const cell = row.c[idxPLoc];
+                              if (cell.v !== null && cell.v !== undefined) loc = String(cell.v).trim();
+                              else if (cell.f) loc = String(cell.f).trim();
+                          }
+
+                          // Normalize and Map Purchase Locations
+                          const normalizedLocInput = loc.toUpperCase().replace(/\s+/g, '');
+                          
+                          if (normalizedLocInput === '150') continue; // Skip '150' as requested
+                          
+                          const purchaseLocMap = {
+                              "VAISHALI": "Vaishali",
+                              "137": "Sector-137",
+                              "ALIGARH": "Aligarh",
+                              "AGRA": "Agra",
+                              "MEERUT": "Meerut",
+                              "VIVEKVIHAR": "Vivek Vihar",
+                              "PARKWAY": "Parkway",
+                              "MATHURA": "Mathura",
+                              "RDC": "RDC"
+                          };
+
+                          if (purchaseLocMap[normalizedLocInput]) {
+                              loc = purchaseLocMap[normalizedLocInput];
+                          }
+
+                          if (loc && loc !== 'Unknown') {
+                              extractedLocations.add(loc);
+                          }
+
+                          let timestamp = 0;
+                          let displayDate = ''; 
+                          
+                          const parseGoogleDate = (cell) => {
+                              if (!cell) return { ts: 0, str: '' };
+                              let str = cell.f || (cell.v !== null && cell.v !== undefined ? String(cell.v) : '');
+                              let ts = 0;
+                              if (cell.v && typeof cell.v === 'string' && cell.v.startsWith('Date(')) {
+                                  const match = cell.v.match(/Date\((\d+),\s*(\d+),\s*(\d+)/);
+                                  if (match) {
+                                      ts = new Date(parseInt(match[1]), parseInt(match[2]), parseInt(match[3])).getTime();
+                                      if (!cell.f) str = new Date(ts).toLocaleDateString('en-IN');
+                                  }
+                              } else if (str) {
+                                  ts = new Date(str).getTime();
+                                  if (isNaN(ts) || ts === 0) {
+                                      let dStr = str.trim().split(/\s+/)[0]; 
+                                      if (dStr.includes('/') || dStr.includes('-')) {
+                                          let parts = dStr.split(/[\/\-]/);
+                                          if (parts.length === 3) {
+                                              if (parts[2].length === 4) { 
+                                                  let m = parseInt(parts[1]); let d = parseInt(parts[0]);
+                                                  if (m > 12) { const temp = m; m = d; d = temp; } 
+                                                  ts = new Date(parseInt(parts[2]), m - 1, d).getTime();
+                                              } else if (parts[0].length === 4) { 
+                                                  ts = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2])).getTime();
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                              return { ts: isNaN(ts) ? 0 : ts, str };
+                          };
+
+                          const dateCell = (idxPDate !== -1 && row.c[idxPDate]) ? row.c[idxPDate] : null;
+                          const fallbackCell = row.c[0];
+
+                          let dateInfo = parseGoogleDate(dateCell);
+                          if (dateInfo.ts === 0) {
+                              dateInfo = parseGoogleDate(fallbackCell);
+                          }
+
+                          timestamp = dateInfo.ts;
+                          displayDate = dateInfo.str;
+
+                          parsedPurchases.push({
+                              timestamp,
+                              displayDate,
+                              location: loc,
+                              vendor: row.c[idxPVendor] ? String(row.c[idxPVendor].v || row.c[idxPVendor].f || '').trim() : '',
+                              invoiceNo: row.c[idxPInvNo] ? String(row.c[idxPInvNo].v || row.c[idxPInvNo].f || '').trim() : '',
+                              amount: getNum(idxPAmt)
+                          });
+                      }
+                  } catch (e) {
+                      console.log("Error parsing Purchase Report: ", e);
+                  }
+              }
+              setPurchaseData(parsedPurchases);
+
               setLocations(Array.from(extractedLocations).sort());
               setData(parsedData);
             } catch (err) {
@@ -615,6 +765,19 @@
                 return true;
             });
           }, [data, startTimestamp, endTimestamp, selectedLocation]);
+
+          // PURCHASE REPORT DATA
+          const filteredPurchases = useMemo(() => {
+            return purchaseData.filter(row => {
+                if (selectedLocation !== 'All' && row.location !== selectedLocation) return false;
+                if (row.timestamp < startTimestamp || row.timestamp > endTimestamp) return false;
+                return true;
+            });
+          }, [purchaseData, startTimestamp, endTimestamp, selectedLocation]);
+
+          const totalPurchaseAmount = useMemo(() => {
+            return filteredPurchases.reduce((sum, row) => sum + row.amount, 0);
+          }, [filteredPurchases]);
 
           const salesTotals = useMemo(() => {
             let cash = 0, card = 0, paytm = 0, upi = 0, totalPaid = 0;
@@ -862,6 +1025,7 @@
                 const budgetStart = new Date(targetYear, targetMonthIdx, 1).getTime();
                 const budgetEnd = new Date(targetYear, targetMonthIdx + 1, 0, 23, 59, 59, 999).getTime(); 
 
+                // Process Main Data
                 data.forEach(r => {
                     const locClean = String(r.location || 'Unknown').trim();
                     const headClean = String(r.expenseHead || 'Uncategorized / Other').trim();
@@ -879,6 +1043,25 @@
                     }
                     budgetMap[key].actual += r.expenseAmount;
                 });
+
+                // Process Purchase Data and map to "Purchase Stock"
+                purchaseData.forEach(r => {
+                    const locClean = String(r.location || 'Unknown').trim();
+                    const headClean = 'Purchase Stock';
+                    
+                    if (selectedLocation !== 'All' && locClean.toLowerCase() !== selectedLocation.toLowerCase()) return;
+                    if (!r.amount || r.amount === 0) return; 
+
+                    // Strict filter based on selected Year & Month
+                    if (!r.timestamp || r.timestamp < budgetStart || r.timestamp > budgetEnd) return;
+
+                    const key = makeKey(locClean, headClean);
+                    
+                    if (!budgetMap[key]) {
+                        budgetMap[key] = { location: locClean, head: headClean, plan: 0, actual: 0 };
+                    }
+                    budgetMap[key].actual += r.amount;
+                });
             }
 
             const records = Object.values(budgetMap).map(row => {
@@ -890,7 +1073,7 @@
             });
 
             return { records };
-          }, [budgetData, data, selectedLocation, budgetYearFilter, budgetMonthFilter]); 
+          }, [budgetData, data, purchaseData, selectedLocation, budgetYearFilter, budgetMonthFilter]); 
 
           // ==========================================
           // BUDGET LOCATION VIEW (Salon-wise) LOGIC with Session & Multi-Month support
@@ -967,7 +1150,7 @@
                   });
               });
 
-              // Process Actual Data
+              // Process Actual Data (Main Sheet)
               data.forEach(r => {
                   const locClean = String(r.location || 'Unknown').trim();
                   const headClean = String(r.expenseHead || 'Uncategorized / Other').trim();
@@ -986,6 +1169,28 @@
                       ensureHead(headClean);
                       headMap[headClean].periods[matchedPeriod.pKey].actual += r.expenseAmount;
                       headMap[headClean].totalActual += r.expenseAmount;
+                  }
+              });
+
+              // Process Actual Data (Purchase Sheet mapping to Purchase Stock)
+              purchaseData.forEach(r => {
+                  const locClean = String(r.location || 'Unknown').trim();
+                  const headClean = 'Purchase Stock';
+
+                  if (selectedLocation !== 'All' && locClean.toLowerCase() !== selectedLocation.toLowerCase()) return;
+                  if (budgetLocFilter !== 'All' && locClean !== budgetLocFilter) return;
+                  if (!r.amount || r.amount === 0 || !r.timestamp) return;
+
+                  const d = new Date(r.timestamp);
+                  const yearStr = String(d.getFullYear());
+                  const shortMonth = d.toLocaleDateString('en-IN', { month: 'short' }).toLowerCase();
+
+                  const matchedPeriod = validPeriods.find(vp => vp.year === yearStr && vp.month.toLowerCase().substring(0,3) === shortMonth);
+
+                  if (matchedPeriod) {
+                      ensureHead(headClean);
+                      headMap[headClean].periods[matchedPeriod.pKey].actual += r.amount;
+                      headMap[headClean].totalActual += r.amount;
                   }
               });
 
@@ -1020,7 +1225,7 @@
               const cleanRecords = records.filter(r => r.totalPlan !== 0 || r.totalActual !== 0);
 
               return { records: cleanRecords, periods: validPeriods, totals: grandTotals };
-          }, [budgetData, data, selectedLocation, budgetYearFilter, budgetLocFilter, isSessionView, selectedBudgetMonths]);
+          }, [budgetData, data, purchaseData, selectedLocation, budgetYearFilter, budgetLocFilter, isSessionView, selectedBudgetMonths]);
 
           // ==========================================
           // BUDGET LOCAL FILTERS & DERIVED DATA
@@ -1085,14 +1290,17 @@
 
           const monthlyReportData = useMemo(() => {
             const monthlyMap = {};
+            const JUNE_2025_TIMESTAMP = new Date(2025, 5, 1).getTime(); 
+
             data.forEach(row => {
                 if (selectedLocation !== 'All' && row.location !== selectedLocation) return;
-                if (!row.timestamp) return;
+                if (!row.timestamp || row.timestamp < JUNE_2025_TIMESTAMP) return; 
+                
                 const dateObj = new Date(row.timestamp);
                 const displayMonth = dateObj.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
                 const sortKey = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
                 if (!monthlyMap[sortKey]) {
-                    monthlyMap[sortKey] = { displayMonth, sortKey, cash: 0, card: 0, paytm: 0, upi: 0, totalSales: 0, totalExpense: 0 };
+                    monthlyMap[sortKey] = { displayMonth, sortKey, cash: 0, card: 0, paytm: 0, upi: 0, totalSales: 0, totalExpense: 0, totalPurchase: 0 };
                 }
                 monthlyMap[sortKey].cash += (Number(row.cash) || 0);
                 monthlyMap[sortKey].card += (Number(row.card) || 0);
@@ -1101,8 +1309,22 @@
                 monthlyMap[sortKey].totalSales += (Number(row.totalPaid) || 0);
                 monthlyMap[sortKey].totalExpense += (Number(row.expenseAmount) || 0);
             });
+
+            purchaseData.forEach(row => {
+                if (selectedLocation !== 'All' && row.location !== selectedLocation) return;
+                if (!row.timestamp || row.timestamp < JUNE_2025_TIMESTAMP) return; 
+
+                const dateObj = new Date(row.timestamp);
+                const displayMonth = dateObj.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+                const sortKey = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
+                if (!monthlyMap[sortKey]) {
+                    monthlyMap[sortKey] = { displayMonth, sortKey, cash: 0, card: 0, paytm: 0, upi: 0, totalSales: 0, totalExpense: 0, totalPurchase: 0 };
+                }
+                monthlyMap[sortKey].totalPurchase += (Number(row.amount) || 0);
+            });
+
             return Object.values(monthlyMap).sort((a, b) => a.sortKey.localeCompare(b.sortKey));
-          }, [data, selectedLocation]); 
+          }, [data, purchaseData, selectedLocation]); 
 
           const formatCurrency = (amount) => {
             return new Intl.NumberFormat('en-IN', {
@@ -1156,6 +1378,16 @@
             ]);
             const csvContent = [headers.join(","), ...rows.map(r => r.map(escapeCSV).join(","))].join("\n");
             downloadCSV(csvContent, `Raw_Data_${startDate}_to_${endDate}.csv`);
+          };
+
+          const handleExportPurchasesData = () => {
+            const headers = ["Date", "Location", "Vendor Name", "Invoice No.", "Amount"];
+            const rows = filteredPurchases.map(r => [
+              r.displayDate, r.location, r.vendor, r.invoiceNo, r.amount
+            ]);
+            rows.push(["GRAND TOTAL", "", "", "", totalPurchaseAmount]);
+            const csvContent = [headers.join(","), ...rows.map(r => r.map(escapeCSV).join(","))].join("\n");
+            downloadCSV(csvContent, `Purchase_Report_${startDate}_to_${endDate}.csv`);
           };
 
           const handleExportExpenses = () => {
@@ -1234,8 +1466,8 @@
           };
 
           const handleExportMonthlyReport = () => {
-            const headers = ["Month", "Cash", "Card", "Paytm", "UPI", "Total Sales", "Total Expense"];
-            const rows = monthlyReportData.map(m => [m.displayMonth, m.cash, m.card, m.paytm, m.upi, m.totalSales, m.totalExpense]);
+            const headers = ["Month", "Cash", "Card", "Paytm", "UPI", "Total Sales", "Total Expense", "Total Purchase"];
+            const rows = monthlyReportData.map(m => [m.displayMonth, m.cash, m.card, m.paytm, m.upi, m.totalSales, m.totalExpense, m.totalPurchase]);
             const csvContent = [headers.join(","), ...rows.map(r => r.map(escapeCSV).join(","))].join("\n");
             downloadCSV(csvContent, `Monthly_Report.csv`);
           };
@@ -1280,7 +1512,7 @@
             <div className="min-h-screen bg-gray-50 text-gray-800 p-4 md:p-6 font-sans">
               <div className="w-full mx-auto space-y-4">
                 
-                <div className="max-w-6xl mx-auto space-y-4">
+                <div className="max-w-[1500px] mx-auto space-y-4">
                   {/* Header */}
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100">
                     <div>
@@ -1386,6 +1618,14 @@
                       📋 Raw Data
                     </button>
                     <button
+                      onClick={() => setActiveTab('purchases')}
+                      className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
+                        activeTab === 'purchases' ? 'bg-orange-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      <ShoppingCart className="w-4 h-4" /> Purchases
+                    </button>
+                    <button
                       onClick={() => setActiveTab('expenses')}
                       className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${
                         activeTab === 'expenses' ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'
@@ -1438,7 +1678,7 @@
 
                 {/* Dynamic Area */}
                 {loading && data.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-16 bg-white rounded-xl border border-gray-100 shadow-sm max-w-6xl mx-auto">
+                  <div className="flex flex-col items-center justify-center py-16 bg-white rounded-xl border border-gray-100 shadow-sm max-w-[1500px] mx-auto">
                     <Loader2 className="w-8 h-8 text-blue-500 animate-spin mb-3" />
                     <p className="text-gray-500 text-sm font-medium">Data processing, please wait...</p>
                   </div>
@@ -1594,6 +1834,68 @@
                               )}
                             </tbody>
                           </table>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* View: Purchases */}
+                    {activeTab === 'purchases' && (
+                      <div className="max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-4">
+                        <div className="bg-orange-600 p-5 rounded-xl shadow-md border border-orange-700 flex items-center gap-4 text-white relative overflow-hidden">
+                          <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm z-10 shrink-0">
+                            <span className="text-2xl">🛒</span>
+                          </div>
+                          <div className="z-10 overflow-hidden">
+                            <p className="text-xs md:text-sm font-medium text-orange-200">Total Purchase Amount</p>
+                            <p className="text-2xl md:text-3xl font-bold truncate mt-0.5">{formatCurrency(totalPurchaseAmount)}</p>
+                          </div>
+                        </div>
+
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                          <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center gap-4">
+                            <h3 className="text-base font-bold text-gray-800">Purchase Report</h3>
+                            <button 
+                              onClick={handleExportPurchasesData}
+                              className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm"
+                            >
+                              <Download className="w-3.5 h-3.5" /> Export CSV
+                            </button>
+                          </div>
+                          
+                          {filteredPurchases.length === 0 ? (
+                            <div className="p-8 text-center text-sm text-gray-500">
+                              <p>Is selected date/location mein koi purchase data nahi mila.</p>
+                            </div>
+                          ) : (
+                            <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
+                              <table className="w-full text-left border-collapse text-sm">
+                                <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
+                                  <tr className="border-b border-gray-200 text-gray-600">
+                                    <th className="px-5 py-3 font-semibold">Date</th>
+                                    <th className="px-5 py-3 font-semibold">Location</th>
+                                    <th className="px-5 py-3 font-semibold">Vendor Name</th>
+                                    <th className="px-5 py-3 font-semibold">Invoice No.</th>
+                                    <th className="px-5 py-3 font-semibold text-right">Amount</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {filteredPurchases.map((row, index) => (
+                                    <tr key={`pur-${index}`} className="border-b border-gray-100 hover:bg-orange-50/30 transition-colors">
+                                      <td className="px-5 py-2.5 text-gray-800">{row.displayDate}</td>
+                                      <td className="px-5 py-2.5 text-gray-800">{row.location}</td>
+                                      <td className="px-5 py-2.5 text-gray-600">{row.vendor}</td>
+                                      <td className="px-5 py-2.5 text-gray-600">{row.invoiceNo}</td>
+                                      <td className="px-5 py-2.5 text-right font-medium text-gray-900">{formatCurrency(row.amount)}</td>
+                                    </tr>
+                                  ))}
+                                  <tr className="bg-gray-50 font-bold text-gray-900 border-t-2 border-gray-200 sticky bottom-0">
+                                    <td className="px-5 py-3" colSpan="4">GRAND TOTAL</td>
+                                    <td className="px-5 py-3 text-right text-orange-700 text-base">{formatCurrency(totalPurchaseAmount)}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          )}
                         </div>
                       </div>
                     )}
@@ -1845,12 +2147,12 @@
                                   <table className="w-full text-left border-collapse min-w-[800px] text-sm">
                                     <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
                                       <tr className="border-b border-gray-200 text-gray-600">
-                                        <th className="px-4 py-2 font-semibold whitespace-nowrap">Location</th>
-                                        <th className="px-4 py-2 font-semibold whitespace-nowrap">Expense Head</th>
-                                        <th className="px-4 py-2 font-bold text-right border-l border-gray-200 text-gray-800">Plan</th>
-                                        <th className="px-4 py-2 font-bold text-right text-gray-800">Actual</th>
-                                        <th className="px-4 py-2 font-bold text-right text-indigo-700">Variance</th>
-                                        <th className="px-4 py-2 font-bold text-right text-amber-600">% Utilized</th>
+                                        <th className="px-4 py-3 font-semibold whitespace-nowrap">Location</th>
+                                        <th className="px-4 py-3 font-semibold whitespace-nowrap">Expense Head</th>
+                                        <th className="px-4 py-3 font-bold text-right border-l border-gray-200 text-gray-800">Plan</th>
+                                        <th className="px-4 py-3 font-bold text-right text-gray-800">Actual</th>
+                                        <th className="px-4 py-3 font-bold text-right text-indigo-700">Variance</th>
+                                        <th className="px-4 py-3 font-bold text-right text-amber-600">% Utilized</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -2022,21 +2324,21 @@
                               <table className="w-full text-left border-collapse min-w-[600px] text-sm">
                                 <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
                                   <tr className="border-b border-gray-200 text-gray-600">
-                                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Date</th>
-                                    <th className="px-4 py-2 font-semibold text-right">Opening Cash</th>
-                                    <th className="px-4 py-2 font-semibold text-right text-green-600">Cash In (Sales)</th>
-                                    <th className="px-4 py-2 font-semibold text-right text-red-500">Cash Out (Exp)</th>
-                                    <th className="px-4 py-2 font-semibold text-right text-teal-700">Closing Cash</th>
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Date</th>
+                                    <th className="px-4 py-3 font-semibold text-right">Opening Cash</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-green-600">Cash In (Sales)</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-red-500">Cash Out (Exp)</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-teal-700">Closing Cash</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {cashReportData.dailyRecords.map((day, index) => (
                                     <tr key={`day-${index}`} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                                      <td className="px-4 py-2 text-gray-800 font-medium whitespace-nowrap">{day.displayDate}</td>
-                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(day.opening)}</td>
-                                      <td className="px-4 py-2 text-right text-green-600 font-medium">+{formatCurrency(day.cashIn)}</td>
-                                      <td className="px-4 py-2 text-right text-red-500 font-medium">-{formatCurrency(day.cashOut)}</td>
-                                      <td className="px-4 py-2 text-right font-bold text-teal-700 bg-teal-50/30">
+                                      <td className="px-4 py-2.5 text-gray-800 font-medium whitespace-nowrap">{day.displayDate}</td>
+                                      <td className="px-4 py-2.5 text-right text-gray-600">{formatCurrency(day.opening)}</td>
+                                      <td className="px-4 py-2.5 text-right text-green-600 font-medium">+{formatCurrency(day.cashIn)}</td>
+                                      <td className="px-4 py-2.5 text-right text-red-500 font-medium">-{formatCurrency(day.cashOut)}</td>
+                                      <td className="px-4 py-2.5 text-right font-bold text-teal-700 bg-teal-50/30">
                                         {formatCurrency(day.closing)}
                                       </td>
                                     </tr>
@@ -2201,31 +2503,35 @@
                             </div>
                           ) : (
                             <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
-                              <table className="w-full text-left border-collapse min-w-[800px] text-sm">
+                              <table className="w-full text-left border-collapse min-w-[900px] text-sm">
                                 <thead className="sticky top-0 bg-gray-50 z-10 shadow-sm">
                                   <tr className="border-b border-gray-200 text-gray-600">
-                                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Month</th>
-                                    <th className="px-4 py-2 font-semibold text-right">Cash</th>
-                                    <th className="px-4 py-2 font-semibold text-right">Card</th>
-                                    <th className="px-4 py-2 font-semibold text-right">Paytm</th>
-                                    <th className="px-4 py-2 font-semibold text-right">UPI</th>
-                                    <th className="px-4 py-2 font-semibold text-right text-green-700">Total Sales</th>
-                                    <th className="px-4 py-2 font-semibold text-right text-red-600">Total Exp</th>
+                                    <th className="px-4 py-3 font-semibold whitespace-nowrap">Month</th>
+                                    <th className="px-4 py-3 font-semibold text-right">Cash</th>
+                                    <th className="px-4 py-3 font-semibold text-right">Card</th>
+                                    <th className="px-4 py-3 font-semibold text-right">Paytm</th>
+                                    <th className="px-4 py-3 font-semibold text-right">UPI</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-green-700">Total Sales</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-red-600">Total Exp</th>
+                                    <th className="px-4 py-3 font-semibold text-right text-orange-600">Total Purchase</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {monthlyReportData.map((month, index) => (
                                     <tr key={`month-${index}`} className="border-b border-gray-100 hover:bg-violet-50/30 transition-colors">
-                                      <td className="px-4 py-2 text-gray-800 font-bold whitespace-nowrap">{month.displayMonth}</td>
-                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(month.cash)}</td>
-                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(month.card)}</td>
-                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(month.paytm)}</td>
-                                      <td className="px-4 py-2 text-right text-gray-600">{formatCurrency(month.upi)}</td>
-                                      <td className="px-4 py-2 text-right font-bold text-green-700 bg-green-50/30">
+                                      <td className="px-4 py-2.5 text-gray-800 font-bold whitespace-nowrap">{month.displayMonth}</td>
+                                      <td className="px-4 py-2.5 text-right text-gray-600">{formatCurrency(month.cash)}</td>
+                                      <td className="px-4 py-2.5 text-right text-gray-600">{formatCurrency(month.card)}</td>
+                                      <td className="px-4 py-2.5 text-right text-gray-600">{formatCurrency(month.paytm)}</td>
+                                      <td className="px-4 py-2.5 text-right text-gray-600">{formatCurrency(month.upi)}</td>
+                                      <td className="px-4 py-2.5 text-right font-bold text-green-700 bg-green-50/30">
                                         {formatCurrency(month.totalSales)}
                                       </td>
-                                      <td className="px-4 py-2 text-right font-bold text-red-600 bg-red-50/30">
+                                      <td className="px-4 py-2.5 text-right font-bold text-red-600 bg-red-50/30">
                                         {formatCurrency(month.totalExpense)}
+                                      </td>
+                                      <td className="px-4 py-2.5 text-right font-bold text-orange-600 bg-orange-50/30">
+                                        {formatCurrency(month.totalPurchase)}
                                       </td>
                                     </tr>
                                   ))}
@@ -2276,16 +2582,16 @@
                               <tbody>
                                 {liveCashData.breakdown.map((loc, index) => (
                                   <tr key={`live-${index}`} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                                    <td className="px-5 py-2 text-gray-800 font-medium">{loc.location}</td>
-                                    <td className="px-5 py-2 text-right font-bold text-emerald-700 bg-emerald-50/30">
+                                    <td className="px-5 py-2.5 text-gray-800 font-medium">{loc.location}</td>
+                                    <td className="px-5 py-2.5 text-right font-bold text-emerald-700 bg-emerald-50/30">
                                       {formatCurrency(loc.liveBalance)}
                                     </td>
                                   </tr>
                                 ))}
                                 {/* Grand Total Row */}
                                 <tr className="bg-gray-100 border-t-2 border-gray-300 font-bold text-gray-900 sticky bottom-0">
-                                  <td className="px-5 py-3">ALL LOCATIONS (GRAND TOTAL)</td>
-                                  <td className="px-5 py-3 text-right text-emerald-800 text-base">{formatCurrency(liveCashData.overallBalance)}</td>
+                                  <td className="px-5 py-3.5">ALL LOCATIONS (GRAND TOTAL)</td>
+                                  <td className="px-5 py-3.5 text-right text-emerald-800 text-base">{formatCurrency(liveCashData.overallBalance)}</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -2300,11 +2606,11 @@
               {/* Expense Drill-Down Modal */}
               {selectedExpenseForDetail && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-                  <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+                  <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-6 py-5 border-b border-gray-100 bg-gray-50 gap-4">
                       <div>
-                        <h3 className="text-2xl font-bold text-gray-900">{selectedExpenseForDetail.head}</h3>
-                        <p className="text-base text-gray-500 mt-1">
+                        <h3 className="text-xl font-bold text-gray-900">{selectedExpenseForDetail.head}</h3>
+                        <p className="text-sm text-gray-500 mt-1">
                           Total: <span className="font-bold text-indigo-600">{formatCurrency(modalFilteredTotal)}</span> 
                           <span className="mx-2">•</span> 
                           {modalFilteredDetails.length} Transaction(s)
@@ -2338,15 +2644,15 @@
                     </div>
 
                     <div className="overflow-y-auto p-0 scrollbar-hide flex-1">
-                      <table className="w-full text-left border-collapse text-base">
+                      <table className="w-full text-left border-collapse text-sm">
                         <thead className="sticky top-0 bg-white shadow-sm ring-1 ring-black/5 z-10">
-                          <tr className="text-gray-500 bg-gray-100/90 backdrop-blur-md uppercase tracking-wider text-sm">
-                            <th className="px-6 py-4 font-bold whitespace-nowrap border-b border-gray-200">Date</th>
-                            <th className="px-6 py-4 font-bold border-b border-gray-200">Remarks / SubHead</th>
-                            <th className="px-6 py-4 font-bold border-b border-gray-200">Location</th>
-                            <th className="px-6 py-4 font-bold text-right whitespace-nowrap border-b border-gray-200">Exp Amt</th>
+                          <tr className="text-gray-500 bg-gray-100/90 backdrop-blur-md uppercase tracking-wider text-xs">
+                            <th className="px-6 py-3.5 font-bold whitespace-nowrap border-b border-gray-200">Date</th>
+                            <th className="px-6 py-3.5 font-bold border-b border-gray-200">Remarks / SubHead</th>
+                            <th className="px-6 py-3.5 font-bold border-b border-gray-200">Location</th>
+                            <th className="px-6 py-3.5 font-bold text-right whitespace-nowrap border-b border-gray-200">Exp Amt</th>
                             {selectedExpenseForDetail.head?.trim() === 'Incentive Expenses' && (
-                                <th className="px-6 py-4 font-bold border-b border-gray-200">Sold By</th>
+                                <th className="px-6 py-3.5 font-bold border-b border-gray-200">Sold By</th>
                             )}
                           </tr>
                         </thead>
@@ -2479,7 +2785,7 @@
                                   </tbody>
                               </table>
                           </div>
-                          <p className="text-xs text-gray-400 mt-2 text-center">Submitted by <span className="font-semibold text-gray-500">{selectedCashVarDetail.mgrManagerName}</span></p>
+                          <p className="text-[10px] text-gray-400 mt-1.5 text-center">Submitted by <span className="font-semibold text-gray-500">{selectedCashVarDetail.mgrManagerName}</span></p>
                       </div>
                     </div>
                   </div>
