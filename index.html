@@ -144,6 +144,9 @@
           const [selectedExpenseForDetail, setSelectedExpenseForDetail] = useState(null);
           const [modalLocationFilter, setModalLocationFilter] = useState('All');
 
+          // New State for Manager Cash Verification Modal
+          const [selectedCashVarDetail, setSelectedCashVarDetail] = useState(null);
+
           const SHEET_ID = '1h2cUl1WB6E9ErvXuaFGkBgiaDZ6CqwC7NArnYHrhmGA';
           const DATA_SHEET = 'Data';
           const CASH_FLOW_SHEET = 'Cash Flow';
@@ -296,9 +299,18 @@
 
                               parsedManagerData[`${dateKey}_${locName}`] = {
                                   managerName: row.c[1] ? String(row.c[1].v || row.c[1].f || '') : 'Unknown',
-                                  cash: getMgrVal(2), 
-                                  upi: getMgrVal(10), 
-                                  card: getMgrVal(11) 
+                                  cash: getMgrVal(2), // Col C
+                                  upi: getMgrVal(10), // Col K
+                                  card: getMgrVal(11), // Col L
+                                  notes: {
+                                      n500: getMgrVal(3), // Col D
+                                      n200: getMgrVal(4), // Col E
+                                      n100: getMgrVal(5), // Col F
+                                      n50: getMgrVal(6),  // Col G
+                                      n20: getMgrVal(7),  // Col H
+                                      n10: getMgrVal(8),  // Col I
+                                      loose: getMgrVal(9) // Col J
+                                  }
                               };
                           }
                       }
@@ -721,23 +733,43 @@
                 return true;
             }).sort((a, b) => b.timestamp - a.timestamp);
 
+            let totalCashVar = 0;
+            let totalUpiVar = 0;
+            let totalCardVar = 0;
+
             const finalReport = filteredRecords.map(record => {
                 const mgrKey = `${record.dateKey}_${record.location}`;
-                const mgr = managerData[mgrKey] || { cash: 0, upi: 0, card: 0, managerName: 'N/A' };
+                const mgr = managerData[mgrKey] || { cash: 0, upi: 0, card: 0, managerName: 'N/A', notes: {} };
                 
+                const cashVar = mgr.cash - record.sysClosingCash;
+                const upiVar = mgr.upi - record.sysUpi;
+                const cardVar = mgr.card - record.sysCard;
+
+                totalCashVar += cashVar;
+                totalUpiVar += upiVar;
+                totalCardVar += cardVar;
+
                 return { 
                     ...record, 
                     mgrManagerName: mgr.managerName,
                     mgrClosingCash: mgr.cash,
-                    cashVar: mgr.cash - record.sysClosingCash, 
+                    cashVar: cashVar, 
                     mgrUpi: mgr.upi,
-                    upiVar: mgr.upi - record.sysUpi,
+                    upiVar: upiVar,
                     mgrCard: mgr.card,
-                    cardVar: mgr.card - record.sysCard
+                    cardVar: cardVar,
+                    mgrNotes: mgr.notes || {}
                 };
             });
 
-            return { records: finalReport };
+            return { 
+              records: finalReport, 
+              totals: { 
+                cashVar: totalCashVar, 
+                upiVar: totalUpiVar, 
+                cardVar: totalCardVar 
+              } 
+            };
           }, [data, baseBalances, managerData, startTimestamp, endTimestamp, selectedLocation]);
 
           const liveCashData = useMemo(() => {
@@ -1671,14 +1703,31 @@
                         </div>
 
                         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
+                          <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                            <div className="flex-shrink-0">
                                 <h3 className="text-lg font-bold text-gray-800">Daily Payment Variance Report</h3>
                                 <p className="text-xs text-gray-500 mt-1">Comparing System automatically calculated data with Manager submitted data per location.</p>
                             </div>
+                            
+                            {/* Summary Cards */}
+                            <div className="flex flex-wrap items-center gap-2 flex-1 lg:justify-end pr-0 lg:pr-4">
+                                <div className={`px-3 py-1.5 rounded-lg border text-sm font-medium flex items-center gap-2 ${paymentReportData.totals.cashVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cashVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="text-xs uppercase tracking-wider opacity-80">Cash Var:</span>
+                                    <span>{paymentReportData.totals.cashVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.cashVar)}</span>
+                                </div>
+                                <div className={`px-3 py-1.5 rounded-lg border text-sm font-medium flex items-center gap-2 ${paymentReportData.totals.upiVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.upiVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="text-xs uppercase tracking-wider opacity-80">UPI Var:</span>
+                                    <span>{paymentReportData.totals.upiVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.upiVar)}</span>
+                                </div>
+                                <div className={`px-3 py-1.5 rounded-lg border text-sm font-medium flex items-center gap-2 ${paymentReportData.totals.cardVar < 0 ? 'bg-red-50 border-red-200 text-red-700' : paymentReportData.totals.cardVar > 0 ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
+                                    <span className="text-xs uppercase tracking-wider opacity-80">Card Var:</span>
+                                    <span>{paymentReportData.totals.cardVar > 0 ? '+' : ''}{formatCurrency(paymentReportData.totals.cardVar)}</span>
+                                </div>
+                            </div>
+
                             <button 
                               onClick={handleExportPaymentReport}
-                              className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-sm transition-colors shadow-sm"
+                              className="flex items-center justify-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg font-medium text-sm transition-colors shadow-sm flex-shrink-0"
                             >
                               <Download className="w-4 h-4" /> Export CSV
                             </button>
@@ -1724,7 +1773,13 @@
                                       <td className="p-4 text-right border-l border-gray-100">{formatCurrency(day.sysClosingCash)}</td>
                                       <td className="p-4 text-right font-medium">{formatCurrency(day.mgrClosingCash)}</td>
                                       <td className={`p-4 text-right font-bold ${day.cashVar < 0 ? 'text-red-600 bg-red-50/50' : day.cashVar > 0 ? 'text-green-600 bg-green-50/50' : 'text-gray-400'}`}>
-                                        {day.cashVar > 0 ? '+' : ''}{formatCurrency(day.cashVar)}
+                                        <button 
+                                          onClick={() => setSelectedCashVarDetail(day)}
+                                          className={`hover:underline underline-offset-2 ${day.cashVar !== 0 ? 'cursor-pointer' : 'cursor-pointer'}`}
+                                          title="View Manager Cash Details"
+                                        >
+                                          {day.cashVar > 0 ? '+' : ''}{formatCurrency(day.cashVar)}
+                                        </button>
                                       </td>
                                       
                                       {/* UPI Data */}
@@ -1931,7 +1986,7 @@
                 )}
               </div>
 
-              {/* Drill-Down Modal */}
+              {/* Expense Drill-Down Modal */}
               {selectedExpenseForDetail && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
                   <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
@@ -2012,6 +2067,116 @@
                         className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors"
                       >
                         Close View
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Cash Variance Drill-Down Modal */}
+              {selectedCashVarDetail && (
+                <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+                  <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[85vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-gray-50">
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">Manager Cash Details</h3>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {selectedCashVarDetail.location} • {selectedCashVarDetail.displayDate}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setSelectedCashVarDetail(null)}
+                        className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors"
+                      >
+                        <X className="w-6 h-6" />
+                      </button>
+                    </div>
+
+                    <div className="overflow-y-auto p-6 space-y-6">
+                      {/* Highlighted Total Cash */}
+                      <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg text-center relative overflow-hidden">
+                          <div className="relative z-10">
+                              <p className="text-emerald-100 font-medium mb-1">Total Cash in Locker (Submitted)</p>
+                              <p className="text-4xl font-bold tracking-tight">{formatCurrency(selectedCashVarDetail.mgrClosingCash)}</p>
+                          </div>
+                          <IndianRupee className="absolute -right-4 -bottom-4 w-24 h-24 text-white opacity-20 pointer-events-none" />
+                      </div>
+
+                      {/* System vs Manager Summary */}
+                      <div className="grid grid-cols-2 gap-4">
+                          <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center">
+                              <p className="text-xs text-gray-500 font-medium uppercase tracking-wider mb-1">System Computed</p>
+                              <p className="text-lg font-bold text-gray-800">{formatCurrency(selectedCashVarDetail.sysClosingCash)}</p>
+                          </div>
+                          <div className={`rounded-xl p-4 border text-center ${selectedCashVarDetail.cashVar < 0 ? 'bg-red-50 border-red-100' : selectedCashVarDetail.cashVar > 0 ? 'bg-green-50 border-green-100' : 'bg-gray-50 border-gray-100'}`}>
+                              <p className={`text-xs font-medium uppercase tracking-wider mb-1 ${selectedCashVarDetail.cashVar < 0 ? 'text-red-500' : selectedCashVarDetail.cashVar > 0 ? 'text-green-600' : 'text-gray-500'}`}>Variance</p>
+                              <p className={`text-lg font-bold ${selectedCashVarDetail.cashVar < 0 ? 'text-red-700' : selectedCashVarDetail.cashVar > 0 ? 'text-green-700' : 'text-gray-800'}`}>
+                                  {selectedCashVarDetail.cashVar > 0 ? '+' : ''}{formatCurrency(selectedCashVarDetail.cashVar)}
+                              </p>
+                          </div>
+                      </div>
+
+                      {/* Denomination Breakdown */}
+                      <div>
+                          <h4 className="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wider">Denomination Breakdown</h4>
+                          <div className="border border-gray-200 rounded-xl overflow-hidden">
+                              <table className="w-full text-left text-sm">
+                                  <thead className="bg-gray-50 border-b border-gray-200 text-gray-500">
+                                      <tr>
+                                          <th className="py-2 px-4 font-semibold">Notes/Coins</th>
+                                          <th className="py-2 px-4 font-semibold text-center">Count</th>
+                                          <th className="py-2 px-4 font-semibold text-right">Amount</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody className="divide-y divide-gray-100">
+                                      <tr className="hover:bg-gray-50">
+                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-purple-100 border border-purple-300 rounded inline-block"></span> ₹500</td>
+                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n500 || 0}</td>
+                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n500 || 0) * 500)}</td>
+                                      </tr>
+                                      <tr className="hover:bg-gray-50">
+                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-orange-100 border border-orange-300 rounded inline-block"></span> ₹200</td>
+                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n200 || 0}</td>
+                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n200 || 0) * 200)}</td>
+                                      </tr>
+                                      <tr className="hover:bg-gray-50">
+                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-blue-100 border border-blue-300 rounded inline-block"></span> ₹100</td>
+                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n100 || 0}</td>
+                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n100 || 0) * 100)}</td>
+                                      </tr>
+                                      <tr className="hover:bg-gray-50">
+                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-cyan-100 border border-cyan-300 rounded inline-block"></span> ₹50</td>
+                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n50 || 0}</td>
+                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n50 || 0) * 50)}</td>
+                                      </tr>
+                                      <tr className="hover:bg-gray-50">
+                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-red-100 border border-red-300 rounded inline-block"></span> ₹20</td>
+                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n20 || 0}</td>
+                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n20 || 0) * 20)}</td>
+                                      </tr>
+                                      <tr className="hover:bg-gray-50">
+                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2"><span className="w-6 h-4 bg-amber-100 border border-amber-300 rounded inline-block"></span> ₹10</td>
+                                          <td className="py-2 px-4 text-center font-medium">{selectedCashVarDetail.mgrNotes?.n10 || 0}</td>
+                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency((selectedCashVarDetail.mgrNotes?.n10 || 0) * 10)}</td>
+                                      </tr>
+                                      <tr className="bg-gray-50">
+                                          <td className="py-2 px-4 font-medium text-gray-700 flex items-center gap-2">🪙 Loose</td>
+                                          <td className="py-2 px-4 text-center text-gray-400">-</td>
+                                          <td className="py-2 px-4 text-right font-medium">{formatCurrency(selectedCashVarDetail.mgrNotes?.loose || 0)}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <p className="text-xs text-gray-400 mt-2 text-center">Submitted by {selectedCashVarDetail.mgrManagerName}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 border-t border-gray-100 bg-gray-50 text-center">
+                      <button 
+                        onClick={() => setSelectedCashVarDetail(null)}
+                        className="px-8 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-xl transition-colors w-full"
+                      >
+                        Close Breakdown
                       </button>
                     </div>
                   </div>
